@@ -8,8 +8,13 @@
 body{
   margin: 0;
   padding: 0;
-  background-image: "/Image/sfondo.jpg";
-  height: 100vh;
+  background-image: url("Image/sfondo.jpg");
+  height: 100%; 
+  background-repeat: no-repeat;
+  background-size: cover;
+
+
+  height: max-content;
   overflow: hidden;
 }
 .center{
