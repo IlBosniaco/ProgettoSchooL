@@ -7,6 +7,7 @@
     <title>HomePage</title>
 </head>
 <body>
+   <img class="sfondo1" src="Image/logo_large.png" width="12%" height="5%" >
     <ul class="menu-bar">
         <li>
           Home
@@ -27,6 +28,6 @@
           Bosnia
         </li>
       </ul>
-      <img class="sfondo1" src="../Image/Homepage/logo_large.png" width="12%" height="5%">
+     
 </body>
 </html>
