@@ -2,7 +2,7 @@ body {
     height: 100vh;
     margin: 0;
     background-color: rgba(0, 0, 0, 0.4);
-    background-image: url("../Image/Homepage/logo_white_large.png");
+    background-image: url("Image/logo_white_large.png");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
@@ -55,7 +55,8 @@ body {
     transform: scale(1.2);
   }
   .sfondo1{
-    margin: 20px 0 0 0;
-    justify-items: left;
+    margin: 1% 0 0 0;
+    justify-content: left;
     display: flex;
+
   }
