@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mar 17, 2022 alle 12:24
--- Versione del server: 10.4.21-MariaDB
--- Versione PHP: 8.0.12
+-- Creato il: Mar 21, 2022 alle 11:57
+-- Versione del server: 10.4.6-MariaDB
+-- Versione PHP: 7.3.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -105,6 +106,7 @@ CREATE TABLE `tutor` (
 CREATE TABLE `utente` (
   `id` int(11) NOT NULL,
   `nome_utente` varchar(50) NOT NULL,
+  `email` varchar(50) DEFAULT NULL,
   `password` varchar(50) NOT NULL,
   `immagine_profilo` varchar(1000) NOT NULL,
   `anno` int(11) NOT NULL,
