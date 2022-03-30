@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['uname'])){
+    header('location: ../Login/index.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -29,5 +37,7 @@
         </li>
       </ul>
      
+      <br>
+      <a href="logout.php">logout</a>
 </body>
 </html>
