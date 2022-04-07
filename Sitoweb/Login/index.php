@@ -7,12 +7,12 @@
   }
 
   if(isset($_POST['but_submit'])){
-    include "config.php";
+    include "../config.php";
     $uname=mysqli_real_escape_string($link,$_POST['uname']);
     $password=mysqli_real_escape_string($link,$_POST['pwd']);
 
     if($uname != "" && $password != ""){
-        $sql_query="SELECT COUNT(*) AS cntUser FROM utente WHERE nome_utente=? AND password=?";
+        $sql_query="SELECT id,COUNT(*) AS cntUser FROM utente WHERE nome_utente=? AND password=?";
         if($stmt = mysqli_prepare($link,$sql_query)){
           mysqli_stmt_bind_param($stmt, "ss", $param_uname, $param_pass);
           
@@ -25,6 +25,7 @@
 
             if($row["cntUser"]==1){
               $_SESSION['uname']=$uname;
+              $_SESSION['id']=$row["id"];
               header('Location: ../Homepage/index.php');
               exit(); 
             }else if($row["cntUser"]>1){

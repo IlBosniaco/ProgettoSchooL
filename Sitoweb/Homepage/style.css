@@ -1,17 +1,4 @@
-<?php
-session_start();
-
-if(!isset($_SESSION['uname'])){
-    header('location: ../Login');
-}
-?>
-
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <style>
-      body {
+body {
     height: 100vh;
     margin: 0;
     background-color: rgba(0, 0, 0, 0.4);
@@ -67,56 +54,9 @@ if(!isset($_SESSION['uname'])){
     box-shadow: 0px 3px 20px 0px black;
     transform: scale(1.2);
   }
-  a {
-    color: white;
-    text-decoration: none; 
-    font-weight: bold;
+  .sfondo1{
+    margin: 1% 0 0 0;
+    justify-content: left;
+    display: flex;
+
   }
-  a:hover {
-    color: black;
-  }
-  img{
-    width:100%;
-    height:40px;
-  }
-    </style>
-    
-    <title>HomePage</title>
-</head>
-<body>
-    <ul class="menu-bar">
-        <li>
-          <a href="contactus.php"><img src="Image/logo_white_large.png"></a> 
-        </li>    
-        <li>
-          <a href="tutor.php">Home</a>
-        </li>
-        <li>
-          Nigga
-        </li>
-        <li>
-          Shop
-        </li>
-        <li>
-          Amogus
-        </li>
-        <li>
-          Pisnelo
-        </li>
-        <li>
-          Bosnia
-        </li>
-        <li>
-          <a href="logout.php">Logout</a>
-        </li>
-        <li>
-        Ricerca
-          <input type="search" name="cerca" id="cerca" placeholder="search">
-        </li>
-        
-      </ul>
-     
-      <br>
-      
-</body>
-</html>
