@@ -19,9 +19,9 @@ if(!isset($_SESSION['uname'])){
     if($_SERVER["REQUEST_METHOD"] == "post" || $_SERVER["REQUEST_METHOD"] == "POST"){
         require_once '../config.php';
     
-        $sql="SELECT * FROM tutor INNER JOIN utente ON tutor.id_utente=utenete.id";
+        $sql="SELECT * FROM tutor INNER JOIN utente ON tutor.id_utente=utente.id";
 
-        if(empty(trim($_POST["modello"]))){
+        if(empty(trim($_POST["nome_utente"]))){
             $sql.=" WHERE modello != ? ";
             $param_modello="";
         }else{

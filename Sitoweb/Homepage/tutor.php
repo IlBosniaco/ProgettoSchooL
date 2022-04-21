@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['uname'])){
+    header('location: ../Login');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,20 +15,64 @@
     <title>Document</title>
 </head>
 <body>
+
+<div>
+    <form action="tutor.php" method="post">
+        <label for="nome_utente">nome utente</label>
+        <input type="text" name="nome_utente"><br>
+        <label for="nome">nome</label>
+        <input type="text" name="nome"><br>
+        <label for="cognome">cognome</label>
+        <input type="text" name="cognome"><br>
+        <label for="sesso">sesso</label>
+        <input type="text" name="sesso"><br>
+        <input type="submit" name="btn" value="Cerca">
+    </form>
+</div>
+
 <?php
-session_start();
+require_once '../config.php';
 
-if(!isset($_SESSION['uname'])){
-    header('location: ../Login');
+$sql="SELECT * FROM (SELECT * FROM tutor INNER JOIN utente ON tutor.id_utente=utente.id) AS tblTutor WHERE ";
+
+if(empty(trim($_POST["nome_utente"]))){
+    $sql.=" nome_utente != ? ";
+    $param_nome_utente="";
 }else{
-    require_once '../config.php';
+    $sql.=" nome_utente = ? ";
+    $param_nome_utente = trim($_POST["nome_utente"]);
+}
 
-    $sql="SELECT * FROM (SELECT * FROM tutor INNER JOIN utente ON tutor.id_utente=utente.id) AS tblTutor";
+if(empty(trim($_POST["nome"]))){
+    $sql.=" AND nome != ? ";
+    $param_nome="";
+}else{
+    $sql.=" AND nome = ? ";
+    $param_nome = trim($_POST["nome"]);
+}
 
-    if($stmt = mysqli_prepare($link,$sql)){
+if(empty(trim($_POST["cognome"]))){
+    $sql.=" AND cognome != ? ";
+    $param_cognome="";
+}else{
+    $sql.=" AND cognome = ? ";
+    $param_cognome = trim($_POST["cognome"]);
+}
 
-        if(mysqli_stmt_execute($stmt)){
-            $result = mysqli_stmt_get_result($stmt);
+if(empty(trim($_POST["sesso"]))){
+    $sql.=" AND sesso != ? ";
+    $param_sesso="";
+}else{
+    $sql.=" AND sesso = ? ";
+    $param_sesso = trim($_POST["sesso"]);
+}
+
+if($stmt = mysqli_prepare($link,$sql)){
+    mysqli_stmt_bind_param($stmt, "siii", $param_nome_utente, $param_nome,$param_cognome,$param_sesso);
+
+    if(mysqli_stmt_execute($stmt)){
+        $result = mysqli_stmt_get_result($stmt);
+        if(mysqli_num_rows($result)>0){
             while ($row = mysqli_fetch_array($result)) {
                 echo"<div>";
                     echo "<p>".$row['nome_utente']."</p>";
@@ -31,14 +83,18 @@ if(!isset($_SESSION['uname'])){
                         echo "<p>".$row['descrizione']."</p>";
                 echo"</div>";
             }
-
+        }else{
+            echo "nessun risultato trovato";
         }
-    }else{
-        echo "something went wrong";
-    }
+       
 
-    mysqli_stmt_close($stmt);
+    }
+}else{
+    echo "something went wrong";
 }
+
+mysqli_stmt_close($stmt);
+
 ?>
 </body>
 </html>
