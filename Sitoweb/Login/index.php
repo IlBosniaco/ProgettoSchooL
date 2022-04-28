@@ -67,9 +67,9 @@
         <a href="https://agora.ismonnet.it/resetPsw/capResetPsw-mail.php">password dimenticata?</a>
         </div>
         <input type="submit" value="Login" name="but_submit">
-        <!--<div class="signup_link">
-          Non sei iscritto? <a href="#">Registrati</a>
-        </div>-->
+        <div class="signup_link">
+          Non sei iscritto? <a href="../Registrati/register.php">Registrati</a>
+        </div>
       </form>
     </div>
 
