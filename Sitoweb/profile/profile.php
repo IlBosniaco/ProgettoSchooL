@@ -133,38 +133,16 @@ if(!isset($_SESSION['uname'])){
               $img_profilo=$row['immagine_profilo'];
             }*/
             $result = mysqli_stmt_get_result($stmt);
-                echo "<table style='text-align:center;'>";
-                    echo"<thead>";
-                        echo"<tr>";
-                            echo "<th>id</th>";
-                            echo "<th>nome_utente</th>";
-                            echo "<th>email</th>";
-                            echo "<th>password</th>";
-                            echo "<th>immagine_profilo</th>";
-                            echo "<th>anno</th>";
-                            echo "<th>sezione</th>";
-                            echo "<th>indirizzo</th>";
-                            echo "<th>numTelefono</th>";
-                            echo "<th>Sesso</th>";
-                        echo"</tr>";
-                    echo"</thead>";
-                    echo"<tbody>";
-                        while ($row = mysqli_fetch_array($result)) {
-                            echo"<tr>";
-                                echo "<td>".$row['id']."</td>";
-                                echo "<td>".$row['nome_utente']."</td>";
-                                echo "<td>".$row['email']."</td>";
-                                echo "<td>".$row['password']."</td>";
-                                echo "<td>".$row['immagine_profilo']."</td>";
-                                echo "<td>".$row['anno']."</td>";
-                                echo "<td>".$row['sezione']."</td>";
-                                echo "<td>".$row['indirizzo']."</td>";
-                                echo "<td>".$row['numTelefono']."</td>";
-                                echo "<td>".$row['sesso']."</td>";
-                            echo"</tr>";
-                        }
-                    echo"</tbody>";
-                echo"</table>";
+            $idUtente=$row['id'];
+            $nomeUtente=$row['nome_utente'];
+            $emailUtente=$row['email'];
+            $passwordUtente=$row['password'];
+            $imgprofiloUtente=$row['immagine_profilo'];
+            $annoUtente=$row['anno'];
+            $sezioneUtente=$row['sezione'];
+            $indirizzoUtente=$row['indirizzo'];
+            $numtelefonoUtente=$row['numTelefono'];
+            $sessoUtente=$row['sesso'];
         }
     }else{
         echo "something went wrong";
