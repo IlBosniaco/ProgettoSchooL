@@ -123,7 +123,11 @@ $_SESSION['id']=$row["id"];*/
           <a href="../profile/profile.php">Il mio profilo </a>
         </li>
         <li>
+<<<<<<< Updated upstream
           Lezioni
+=======
+          <a href="ricerca.php">Cerca</a>
+>>>>>>> Stashed changes
         </li>
         <li>
           Diventa tutor
@@ -134,11 +138,7 @@ $_SESSION['id']=$row["id"];*/
         <li>
           <a href="logout.php">Logout</a>
         </li>
-        <li>
-        Ricerca
-          <input type="search" name="cerca" id="cerca" placeholder="search" href="ricerca.php">
-          <button>Search</button>
-        </li>
+
         <li>
         <a href="../Profile/profile.php"><img src='<?= $img_profilo ?>' class="profile"></a>   <?php echo $_SESSION['uname'] ?>
         </li>
