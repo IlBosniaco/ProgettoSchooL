@@ -56,7 +56,7 @@
         <div class="txt_field">
           <input type="text" name="uname" required>
           <span></span>
-          <label>cognome_nome@ismonnet.onmicrosoft.com</label>
+          <label>cognome_nome</label>
         </div>
         <div class="txt_field">
           <input type="password" name="pwd" required>

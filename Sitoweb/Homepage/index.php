@@ -120,23 +120,17 @@ $_SESSION['id']=$row["id"];*/
           <a href="../Homepage/index.php"><img src="Image/logo_white_large.png" class="logo"></a> 
         </li>    
         <li>
-          <a href="../profile/profile.php"></a>Il mio profilo 
+          <a href="../profile/profile.php">Il mio profilo </a>
         </li>
         <li>
-          Nigga
+          Lezioni
         </li>
         <li>
-          Shop
+          Diventa tutor
         </li>
         <li>
-          Amogus
-        </li>
-        <li>
-          Pisnelo
-        </li>
-        <li>
-          Bosnia
-        </li>
+          Cerca tutor
+        </li>      
         <li>
           <a href="logout.php">Logout</a>
         </li>

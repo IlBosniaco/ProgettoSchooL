@@ -1,9 +1,9 @@
 <?php
-//session_start();
+  session_start();
 
-//if(!isset($_SESSION['uname'])){
-  //  header('location: ../Login/index.php');
-//}
+if(!isset($_SESSION['uname'])){
+  header('location: ../Login/');
+}
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +15,6 @@
     height: 100vh;
     margin: 0;
     background-color: rgba(0, 0, 0, 0.4);
-    background-image: url("../Image/logo_white_large.png");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
@@ -95,26 +94,20 @@
 <body>   
 <ul class="menu-bar">
         <li>
-          <a href="../Homepage/index.php"><img src="../Image/logo_white_large.png" class="logo"></a> 
+          <a href="../Homepage/index.php"><img src="../Homepage/Image/logo_white_large.png" class="logo"></a> 
         </li>    
         <li>
-          Home
+          <a href="../profile/profile.php">Il mio profilo </a>
         </li>
         <li>
-          Nigga
+          Lezioni
         </li>
         <li>
-          Shop
+          Diventa tutor
         </li>
         <li>
-          Amogus
-        </li>
-        <li>
-          Pisnelo
-        </li>
-        <li>
-          Bosnia
-        </li>
+          Cerca tutor
+        </li>      
         <li>
           <a href="logout.php">Logout</a>
         </li>
@@ -123,9 +116,61 @@
           <input type="search" name="cerca" id="cerca" placeholder="search">
         </li>
         <li>
-        <a href="../Profile/profile.php"><img src="../Image/profile_picture_default.jpg" class="profile"></a>   SIMMY<!--nome utente--> 
+        <a href="../Profile/profile.php"><img src="../Immagini_profilo/rossi_mario.jpg" class="profile"></a>  <?php echo $_SESSION['uname'] ?>
         </li>
-      </ul>
-      
+</ul>
+      <!--il mio profilo-->
+<?php
+    require_once '../Login/config.php';
+    $id=$_SESSION['id'];
+    $sql="SELECT * FROM utente WHERE id='$id'";
+
+    if($stmt = mysqli_prepare($link,$sql)){
+
+        if(mysqli_stmt_execute($stmt)){
+            /*$result = mysqli_stmt_get_result($stmt);
+            while ($row = mysqli_fetch_array($result)) {
+              $img_profilo=$row['immagine_profilo'];
+            }*/
+            $result = mysqli_stmt_get_result($stmt);
+                echo "<table style='text-align:center;'>";
+                    echo"<thead>";
+                        echo"<tr>";
+                            echo "<th>id</th>";
+                            echo "<th>nome_utente</th>";
+                            echo "<th>email</th>";
+                            echo "<th>password</th>";
+                            echo "<th>immagine_profilo</th>";
+                            echo "<th>anno</th>";
+                            echo "<th>sezione</th>";
+                            echo "<th>indirizzo</th>";
+                            echo "<th>numTelefono</th>";
+                            echo "<th>Sesso</th>";
+                        echo"</tr>";
+                    echo"</thead>";
+                    echo"<tbody>";
+                        while ($row = mysqli_fetch_array($result)) {
+                            echo"<tr>";
+                                echo "<td>".$row['id']."</td>";
+                                echo "<td>".$row['nome_utente']."</td>";
+                                echo "<td>".$row['email']."</td>";
+                                echo "<td>".$row['password']."</td>";
+                                echo "<td>".$row['immagine_profilo']."</td>";
+                                echo "<td>".$row['anno']."</td>";
+                                echo "<td>".$row['sezione']."</td>";
+                                echo "<td>".$row['indirizzo']."</td>";
+                                echo "<td>".$row['numTelefono']."</td>";
+                                echo "<td>".$row['sesso']."</td>";
+                            echo"</tr>";
+                        }
+                    echo"</tbody>";
+                echo"</table>";
+        }
+    }else{
+        echo "something went wrong";
+    }
+    mysqli_stmt_close($stmt);
+?>  
+
     </body>
 </html>
