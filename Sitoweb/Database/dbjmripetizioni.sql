@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mar 21, 2022 alle 11:57
--- Versione del server: 10.4.6-MariaDB
--- Versione PHP: 7.3.8
+-- Creato il: Apr 29, 2022 alle 12:03
+-- Versione del server: 10.4.22-MariaDB
+-- Versione PHP: 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -25,38 +24,21 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `giorni`
---
-
-CREATE TABLE `giorni` (
-  `id` int(11) NOT NULL,
-  `giorno` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `giornitutor`
---
-
-CREATE TABLE `giornitutor` (
-  `idtutor` int(11) NOT NULL,
-  `idgiorno` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Struttura della tabella `lezioni`
 --
 
 CREATE TABLE `lezioni` (
   `id` int(11) NOT NULL,
   `id_tutor` int(11) NOT NULL,
-  `id_alunno` int(11) NOT NULL,
-  `orainizio` time NOT NULL,
-  `orafine` time NOT NULL
+  `id_alunno` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `lezioni`
+--
+
+INSERT INTO `lezioni` (`id`, `id_tutor`, `id_alunno`) VALUES
+(1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -69,6 +51,14 @@ CREATE TABLE `materiatutor` (
   `idmaterie` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dump dei dati per la tabella `materiatutor`
+--
+
+INSERT INTO `materiatutor` (`idtutor`, `idmaterie`) VALUES
+(2, 1),
+(2, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -80,6 +70,16 @@ CREATE TABLE `materie` (
   `materia` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dump dei dati per la tabella `materie`
+--
+
+INSERT INTO `materie` (`id`, `materia`) VALUES
+(1, 'matematica'),
+(2, 'italiano'),
+(3, 'storia'),
+(4, 'informatica');
+
 -- --------------------------------------------------------
 
 --
@@ -88,14 +88,19 @@ CREATE TABLE `materie` (
 
 CREATE TABLE `tutor` (
   `id_utente` int(11) NOT NULL,
-  `id_materie` int(11) NOT NULL,
-  `descrizione` text NOT NULL,
-  `valutazione` int(11) NOT NULL,
-  `numero_recensioni` int(11) NOT NULL,
-  `id_giorni` int(11) NOT NULL,
+  `descrizione` text DEFAULT NULL,
+  `valutazione` int(11) DEFAULT NULL,
+  `numero_recensioni` int(11) DEFAULT NULL,
   `prezzi_ora` float NOT NULL,
   `link_meet` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `tutor`
+--
+
+INSERT INTO `tutor` (`id_utente`, `descrizione`, `valutazione`, `numero_recensioni`, `prezzi_ora`, `link_meet`) VALUES
+(2, NULL, NULL, NULL, 20, 'https://meet.google.com/thd-athe-obj');
 
 -- --------------------------------------------------------
 
@@ -106,33 +111,29 @@ CREATE TABLE `tutor` (
 CREATE TABLE `utente` (
   `id` int(11) NOT NULL,
   `nome_utente` varchar(50) NOT NULL,
-  `email` varchar(50) DEFAULT NULL,
+  `email` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
-  `immagine_profilo` varchar(1000) NOT NULL,
+  `immagine_profilo` varchar(1000) NOT NULL DEFAULT 'https://png.pngtree.com/png-vector/20190223/ourlarge/pngtree-profile-line-black-icon-png-image_691065.jpg',
   `anno` int(11) NOT NULL,
   `sezione` char(1) NOT NULL,
   `indirizzo` varchar(3) NOT NULL,
   `nome` varchar(50) NOT NULL,
   `cognome` varchar(50) NOT NULL,
+  `numTelefono` varchar(15) DEFAULT NULL,
   `sesso` char(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dump dei dati per la tabella `utente`
+--
+
+INSERT INTO `utente` (`id`, `nome_utente`, `email`, `password`, `immagine_profilo`, `anno`, `sezione`, `indirizzo`, `nome`, `cognome`, `numTelefono`, `sesso`) VALUES
+(1, 'rossi_mario', 'rossi_mario@ismonnet.onmicrosoft.com', '1234', '../Immagini_profilo/rossi_mario.jpg', 5, 'B', 'inf', 'mario', 'rossi', '333451', 'M'),
+(2, 'conti_pippo', 'conti_pippo@ismonnet.onmicrosoft.com', '1234', 'https://png.pngtree.com/png-vector/20190223/ourlarge/pngtree-profile-line-black-icon-png-image_691065.jpg', 1, 'B', 'inf', 'conti', 'pippo', '333452', 'M');
+
+--
 -- Indici per le tabelle scaricate
 --
-
---
--- Indici per le tabelle `giorni`
---
-ALTER TABLE `giorni`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indici per le tabelle `giornitutor`
---
-ALTER TABLE `giornitutor`
-  ADD PRIMARY KEY (`idtutor`,`idgiorno`),
-  ADD KEY `idgiorno` (`idgiorno`);
 
 --
 -- Indici per le tabelle `lezioni`
@@ -172,39 +173,26 @@ ALTER TABLE `utente`
 --
 
 --
--- AUTO_INCREMENT per la tabella `giorni`
---
-ALTER TABLE `giorni`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT per la tabella `lezioni`
 --
 ALTER TABLE `lezioni`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT per la tabella `materie`
 --
 ALTER TABLE `materie`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT per la tabella `utente`
 --
 ALTER TABLE `utente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Limiti per le tabelle scaricate
 --
-
---
--- Limiti per la tabella `giornitutor`
---
-ALTER TABLE `giornitutor`
-  ADD CONSTRAINT `giornitutor_ibfk_1` FOREIGN KEY (`idgiorno`) REFERENCES `giorni` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `giornitutor_ibfk_2` FOREIGN KEY (`idtutor`) REFERENCES `tutor` (`id_utente`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limiti per la tabella `lezioni`

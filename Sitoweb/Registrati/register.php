@@ -1,5 +1,5 @@
 <?php
-require_once '../config.php';
+require_once '../Database/config.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,8 +23,8 @@ require_once '../config.php';
         </p>
         
         <p>Sesso:
-        <input type="radio" id="sesso" value="M">Maschio
-        <input type="radio" id="sesso" value="F">Femmina
+        <input type="radio" name="sesso" id="sesso" value="M">Maschio
+        <input type="radio" name="sesso"id="sesso" value="F">Femmina
         
         
         <p>Classe: </p>
@@ -41,13 +41,13 @@ require_once '../config.php';
             Sezione:
             <select name="sezione" id="" required>
                 <option disabled selected value> -- Seleziona un'opzione -- </option>
-                <option value="1">A</option>
-                <option value="2">B</option>
-                <option value="3">C</option>
-                <option value="4">D</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
             </select>
-            Corso:
-            <select name="sezione" id="" required>
+            indirizzo:
+            <select name="indirizzo" id="" required>
                 <option disabled selected value> -- Seleziona un'opzione -- </option>
                 <option value="INF">INF</option>
                 <option value="LSA">LSA</option>
@@ -59,7 +59,7 @@ require_once '../config.php';
         <p>Email:
             <input type="email" name="email" id="email" required>
         </p>
-        <p>Password:
+        <!--<p>Password:
             <input type="password" name="password" id="password" required>
             <input type="checkbox" onclick='seePassword("password")'>Show Password
         </p>
@@ -67,50 +67,41 @@ require_once '../config.php';
             <input type="password" name="conf_password" id="conf_password" required>
             <input type="checkbox" onclick='seePassword("conf_password")'>Show Password
         </p>
+        LA PASSWORD ALLA REGISTRAZIONE E' RANDOM-->
+        <p>Num Telefono:
+        <input type="text" name="numTel" placeholder="non obbligatorio" id="">
         <p>
             <input type="submit" value="Registrati"> o
-            <a href="index.html">Annulla</a>
+            <a href="register.php">Annulla</a>
         </p>
+    
+        
     </form>
     <?php
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        if (strcmp($_POST['password'], $_POST['conf_password']) != 0) {
-                echo '<p class="error">Le due password non sono uguali</p>';
-            } else {
-                $sql = "SELECT nome_utente FROM utente";
-                if ($stmt = mysqli_prepare($link, $sql)) {
-                    if (mysqli_stmt_execute($stmt)) {
-                        $result = mysqli_stmt_get_result($stmt);
-                        if (mysqli_num_rows($result) > 0) {
-                            echo '<p class="error">Username già esistente</p>';
-                        } else {
-                            $nome = mysqli_real_escape_string($link, $_POST['nome']);
-                            $cognome = mysqli_real_escape_string($link, $_POST['cognome']);
-                            $nome_utente=$cognome."_".$nome;
-                            $anno = mysqli_real_escape_string($link, $_POST['anno']);
-                            $sezione = mysqli_real_escape_string($link, $_POST['sezione']);
-                            $idCorso = mysqli_real_escape_string($link, $_POST['corso']);
-                            $username = mysqli_real_escape_string($link, $_POST['username']);
-                            $password = mysqli_real_escape_string($link, $_POST['password']);
-                            $sql = "INSERT INTO utenti (`nome`, `cognome`, `anno`, `sezione`, `IDCorso`, `username`, `password`)  VALUES (?, ?, ?, ?, ?, ?, ?)";
-                            if ($stmt = mysqli_prepare($link, $sql)) {
-                                mysqli_stmt_bind_param($stmt, 'ssisiss', $nome, $cognome, $anno, $sezione, $idCorso, $username, $password);
-                                if (mysqli_stmt_execute($stmt)) {
-                                    header('location: register-success.php');
-                                } else {
-                                    echo '<p class="error">Qualcosa è andato storto. Riprova più tardi</p>';
-                                }
-                            } else {
-                                echo '<p class="error">Qualcosa è andato storto. Riprova più tardi</p>';
-                            }
-                        }
-                    } else {
-                        echo '<p class="error">Qualcosa è andato storto. Riprova più tardi</p>';
+                    $nome = mysqli_real_escape_string($link, $_POST['nome']);
+                    $cognome = mysqli_real_escape_string($link, $_POST['cognome']);
+                    $nome_utente=$cognome."_".$nome;
+                    $email = mysqli_real_escape_string($link, $_POST['email']);
+                    //immagine profilo è di default
+                    $immagine_profilo='DEFAULT';
+                    $anno = mysqli_real_escape_string($link, $_POST['anno']);
+                    $sezione = mysqli_real_escape_string($link, $_POST['sezione']);
+                    $indirizzo = mysqli_real_escape_string($link, $_POST['indirizzo']);
+                    $sesso = mysqli_real_escape_string($link, $_POST['sesso']);
+                    
+                    //GENERO LA PASSWORD RANDOM
+                    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                    $randstring = '';
+                    for ($i = 0; $i < 10; $i++) {
+                        $index = rand(0, strlen($characters) - 1);
+                        $randstring .= $characters[$index];
                     }
-                } else {
-                    echo '<p class="error">Qualcosa è andato storto. Riprova più tardi</p>';
-                }
-            }
+                    $query= "INSERT INTO utente VALUES (' ', '$nome_utente', '$email', '$randstring', DEFAULT, '$anno', '$sezione','$indirizzo','$nome','$cognome',' ','$sesso')";
+                    $result= mysqli_query($link,$query);
+                    //echo "REGISTRAZIONE COMPLETATA";
+                    if($result)
+                    header("location: ../Login/");                
     }
 
     ?>

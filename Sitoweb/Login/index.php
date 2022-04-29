@@ -7,7 +7,7 @@
   }
 
   if(isset($_POST['but_submit'])){
-    include "../config.php";
+    include "../Database/config.php";
     $uname=mysqli_real_escape_string($link,$_POST['uname']);
     $password=mysqli_real_escape_string($link,$_POST['pwd']);
 

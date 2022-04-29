@@ -96,7 +96,7 @@ $_SESSION['id']=$row["id"];*/
 </head>
 <body>
 <?php
-    require_once '../Login/config.php';
+    require_once '../Database/config.php';
     $id=$_SESSION['id'];
     $sql="SELECT immagine_profilo FROM utente WHERE id='$id'";
 
@@ -123,11 +123,7 @@ $_SESSION['id']=$row["id"];*/
           <a href="../profile/profile.php">Il mio profilo </a>
         </li>
         <li>
-<<<<<<< Updated upstream
           Lezioni
-=======
-          <a href="ricerca.php">Cerca</a>
->>>>>>> Stashed changes
         </li>
         <li>
           Diventa tutor

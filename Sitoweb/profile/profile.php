@@ -109,7 +109,7 @@ if(!isset($_SESSION['uname'])){
           Cerca tutor
         </li>      
         <li>
-          <a href="logout.php">Logout</a>
+          <a href="../Homepage/logout.php">Logout</a>
         </li>
         <li>
         Ricerca
@@ -121,29 +121,39 @@ if(!isset($_SESSION['uname'])){
 </ul>
       <!--il mio profilo-->
 <?php
-    require_once '../Login/config.php';
+    require_once '../Database/config.php';
     $id=$_SESSION['id'];
     $sql="SELECT * FROM utente WHERE id='$id'";
 
     if($stmt = mysqli_prepare($link,$sql)){
 
         if(mysqli_stmt_execute($stmt)){
-            /*$result = mysqli_stmt_get_result($stmt);
-            while ($row = mysqli_fetch_array($result)) {
-              $img_profilo=$row['immagine_profilo'];
-            }*/
-            $result = mysqli_stmt_get_result($stmt);
-            $idUtente=$row['id'];
-            $nomeUtente=$row['nome_utente'];
-            $emailUtente=$row['email'];
-            $passwordUtente=$row['password'];
-            $imgprofiloUtente=$row['immagine_profilo'];
-            $annoUtente=$row['anno'];
-            $sezioneUtente=$row['sezione'];
-            $indirizzoUtente=$row['indirizzo'];
-            $numtelefonoUtente=$row['numTelefono'];
-            $sessoUtente=$row['sesso'];
-        }
+            
+            $result = mysqli_stmt_get_result($stmt);   
+            $row = mysqli_fetch_array($result);
+              echo"<tr>";
+                  echo "<td>".$row['id']."</td>";
+                  echo "<td>".$row['nome_utente']."</td>";
+                  echo "<td>".$row['email']."</td>";
+                  echo "<td>".$row['password']."</td>";
+                  echo "<td>".$row['immagine_profilo']."</td>";
+                  echo "<td>".$row['anno']."</td>";
+                  echo "<td>".$row['sezione']."</td>";
+                  echo "<td>".$row['indirizzo']."</td>";
+                  echo "<td>".$row['numTelefono']."</td>";
+                  echo "<td>".$row['sesso']."</td>";
+              echo"</tr>";
+              $idUtente=$row['id'];
+              $nomeUtente=$row['nome_utente'];
+              $emailUtente=$row['email'];
+              $passwordUtente=$row['password'];
+              $imgprofiloUtente=$row['immagine_profilo'];
+              $annoUtente=$row['anno'];
+              $sezioneUtente=$row['sezione'];
+              $indirizzoUtente=$row['indirizzo'];
+              $numtelefonoUtente=$row['numTelefono'];
+              $sessoUtente=$row['sesso'];
+            }
     }else{
         echo "something went wrong";
     }
