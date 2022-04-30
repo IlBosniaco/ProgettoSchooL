@@ -13,17 +13,14 @@
 
     <div>
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
-            <label for="nome_utente">nome utente</label>
-            <input type="text" name="nome_utente"><br>
-            <label for="nome">nome</label>
-            <input type="text" name="nome"><br>
-            <label for="cognome">cognome</label>
-            <input type="text" name="cognome"><br>
+            <label for="materia">materia</label>
+            <input type="text" name="materia"><br><br>
             <label for="sesso">sesso</label>
-            <input type="text" name="sesso"><br>
+            Maschio<input type="radio" name="sesso" value="M">Femmina<input type="radio" name="sesso" value="F"><br><br>
             <input type="submit" name="btn" value="Cerca">
         </form>
     </div>
+    <br><br><br>
 <?php
 session_start();
 
@@ -31,50 +28,35 @@ if(!isset($_SESSION['uname'])){
     header('location: ../Login/login.php');
 }else{
     require_once '../Login/config.php';
-    $sql="SELECT * FROM tutor INNER JOIN utente ON tutor.id_utente=utente.id";
+    $sql="SELECT * FROM tutor INNER JOIN utente ON tutor.id_utente=utente.id INNER JOIN materiatutor ON tutor.id_utente=materiatutor.idtutor INNER JOIN materie ON materiatutor.idmaterie=materie.id";
     $query=false;
     if($_SERVER["REQUEST_METHOD"] == "post" || $_SERVER["REQUEST_METHOD"] == "POST"){ 
         $query=true;
         
 
-        if(empty(trim($_POST["nome_utente"]))){
-            $sql.=" WHERE nome_utente != ? ";
-            $param_nome_utente="";
+        if(empty(trim($_POST["materia"]))){
+            $sql.=" WHERE materia != ? ";
+            $param_materia="";
         }else{
-            $sql.=" WHERE nome_utente = ? ";
-            $param_nome_utente = trim($_POST["nome_utente"]);
+            $sql.=" WHERE materia = ? ";
+            $param_materia = trim($_POST["materia"]);
         }
         
-        if(empty(trim($_POST["nome"]))){
-            $sql.=" AND nome != ? ";
-            $param_nome="";
-        }else{
-            $sql.=" AND nome = ? ";
-            $param_nome = trim($_POST["nome"]);
-        }
         
-        if(empty(trim($_POST["cognome"]))){
-            $sql.=" AND cognome != ? ";
-            $param_cognome="";
-        }else{
-            $sql.=" AND cognome = ? ";
-            $param_cognome = trim($_POST["cognome"]);
-        }
-        
-        if(empty(trim($_POST["sesso"]))){
+        if(empty($_POST["sesso"])){
             $sql.=" AND sesso != ?";
             $param_sesso="";
         }else{
             $sql.=" AND sesso = ?";
             $param_sesso = trim($_POST["sesso"]);
         }        
-
-        
     }
+
+    $sql.=" GROUP BY nome_utente";
 
     if($stmt = mysqli_prepare($link,$sql)){
         if($query==true)
-            mysqli_stmt_bind_param($stmt, "ssss", $param_nome_utente, $param_nome,$param_cognome,$param_sesso);
+            mysqli_stmt_bind_param($stmt, "ss", $param_materia, $param_sesso);
 
         if(mysqli_stmt_execute($stmt)){
             $result = mysqli_stmt_get_result($stmt);
@@ -86,6 +68,7 @@ if(!isset($_SESSION['uname'])){
                             echo "<th>nome</th>";
                             echo "<th>cognome</th>";
                             echo "<th>sesso</th>";
+                            echo "<th>materia</th>";
                             echo "<th>descrizione</th>";
                         echo"</tr>";
                     echo"</thead>";
@@ -96,6 +79,7 @@ if(!isset($_SESSION['uname'])){
                             echo "<td>".$row['nome']."</td>";
                             echo "<td>".$row['cognome']."</td>";
                             echo "<td>".$row['sesso']."</td>";
+                            echo "<td>".$row['materia']."</td>";
                             if($row['descrizione']!=null)
                                 echo "<td>".$row['descrizione']."</td>";
                         echo"</tr>";

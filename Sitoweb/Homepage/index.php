@@ -129,7 +129,7 @@ $_SESSION['id']=$row["id"];*/
           Diventa tutor
         </li>
         <li>
-          Cerca tutor
+          <a href="ricerca.php">Cerca tutor</a> 
         </li>      
         <li>
           <a href="logout.php">Logout</a>
