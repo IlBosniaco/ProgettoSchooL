@@ -153,7 +153,7 @@ if(!isset($_SESSION['uname'])){
             Diventa tutor
         </li>
         <li>
-            Cerca tutor
+            <a href="../Homepage/ricerca.php">Cerca tutor</a> 
         </li>
         <li>
             <a href="../Homepage/logout.php">Logout</a>
