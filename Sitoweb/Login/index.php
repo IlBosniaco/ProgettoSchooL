@@ -5,7 +5,8 @@
   if(isset($_SESSION['uname'])){
     header('Location: ../Homepage/index.php');
   }
-
+?>
+<?php
   if(isset($_POST['but_submit'])){
     include "../Database/config.php";
     $uname=mysqli_real_escape_string($link,$_POST['uname']);
@@ -31,7 +32,7 @@
             }else if($row["cntUser"]>1){
               echo "fatal error";
             }else{
-              echo "invalid username or password";
+              echo "passwor wrong";
             }
           }
       }else{

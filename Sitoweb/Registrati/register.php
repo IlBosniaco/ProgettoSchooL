@@ -63,14 +63,7 @@ require_once '../Database/config.php';
       </form>
     </div>
   </body>
-        <!--<p>Password:
-            <input type="password" name="password" id="password" required>
-            <input type="checkbox" onclick='seePassword("password")'>Show Password
-        </p>
-        <p>Conferma password:
-            <input type="password" name="conf_password" id="conf_password" required>
-            <input type="checkbox" onclick='seePassword("conf_password")'>Show Password
-        </p>
+        <!--
         LA PASSWORD ALLA REGISTRAZIONE E' RANDOM-->
     
     <?php
