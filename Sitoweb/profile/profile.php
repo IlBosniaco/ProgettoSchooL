@@ -153,7 +153,7 @@ if(!isset($_SESSION['uname'])){
             Diventa tutor
         </li>
         <li>
-            <a href="../Homepage/ricerca.php">Cerca tutor</a> 
+            <a href="../Homepage/ricerca.php">Cerca tutor</a>
         </li>
         <li>
             <a href="../Homepage/logout.php">Logout</a>
@@ -181,11 +181,11 @@ if(!isset($_SESSION['uname'])){
             $file_ext=substr($file_name, strpos($file_name, ".")+1, strlen($file_name));
             $extensions= array("jpg","png");
             if(in_array($file_ext,$extensions)=== false){
-               echo "please choose a JPG or PNG file.";
+                echo "<div class='alert alert-danger' role='alert'>please choose a JPG or PNG file.</div>";
             }
             else{
                 if($file_size > 2097152){
-                $errors[]='File size must be excately 2 MB';
+                    $errors[]='File size must be excately 2 MB';
                 }
                 else{
                     //ELIMINO VECCHIA FOTO
@@ -205,7 +205,7 @@ if(!isset($_SESSION['uname'])){
                     //carica nel database path dell'immagine
                     $sql="UPDATE utente SET immagine_profilo='$new_path' WHERE id=$id";
                     if ($link->query($sql) === TRUE) {
-                        echo "updated successfully";
+                        echo "<div class='alert alert-success' role='alert'>immagine caricata correttamente.</div>";
                     } else {
                         echo "Error updating record: " . $link->error;
                     }
@@ -213,13 +213,13 @@ if(!isset($_SESSION['uname'])){
             }
         }
         else{
-            echo "non hai selezionato nulla";
+            echo "<div class='alert alert-danger' role='alert'>Non hai selezionato nulla</div>";
         }
         header("Refresh:1");
     }
 ?>
     <div class="container emp-profile">
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" name="upImage" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-4">
                     <div class="profile-img">
@@ -250,6 +250,9 @@ if(!isset($_SESSION['uname'])){
                     <input type="submit" class="profile-edit-btn" name="editProfile" value="Edit Profile" />
                 </div>
             </div>
+        </form>
+        <form action="editPassword.php" name="" method="post">
+            <!--FORM CREDENZIALI-->
             <div class="row">
                 <div class="col-md-8">
                     <div class="tab-content profile-tab" id="myTabContent">
@@ -311,7 +314,7 @@ if(!isset($_SESSION['uname'])){
                                 <label>nuova password</label>
                             </div>
                             <div class="col-md-6">
-                                <input type="password" name="password" id="password">
+                                <input type="password" name="password" id="password" onchange="onChange()">
                                 <input type="checkbox" onclick='seePassword("password")'>Show Password
                             </div>
                         </div>
@@ -320,15 +323,23 @@ if(!isset($_SESSION['uname'])){
                                 <label>conferma password</label>
                             </div>
                             <div class="col-md-6">
-                                <input type="password" name="conf_password" id="conf_password">
+                                <input type="password" name="conf_password" id="conf_password" onchange="onChange()" >
                                 <input type="checkbox" onclick='seePassword("conf_password")'>Show Password
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!--COMPARE PASSWORD-->
+                            <div class="col-md-6">
+                            </div>
+                            <div class="col-md-6">
+                                <p id="demo"></p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <br>
-            <center><input type="submit" class="profile-edit-btn" name="editPwd" value="Edit Password" /></center>
+            <center><input type="hidden" class="profile-edit-btn" id="editPwd" value="Edit Password" /></center>
         </form>
     </div>
 </body>

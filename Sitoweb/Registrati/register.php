@@ -11,89 +11,91 @@ require_once '../Database/config.php';
     <script src="functions.js"></script>
     <title>JMripetizioni - Registrati</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+        integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
 </head>
 
 <body>
     <div class="main-block">
-      <div class="left-part">
-        
-      <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <div class="title">
-          <i class="fas fa-pencil-alt"></i> 
-          <h2>Register here</h2>
-        </div>
-        <div class="info">
-          <input class="fname" type="text" name="nome" placeholder=" Nome">
-          <input class="fname" type="text" name="cognome" placeholder=" Cognome">
-          <input type="text" name="email" placeholder=" Email">
-          <select name="sesso" id="" required>
-            <option disabled selected value>Sesso</option>
-            <option value="maschio">Maschio</option>
-            <option value="femmina">Femmina</option>
-          </select>
-          <select name="anno" id="" required>
-                <option disabled selected value>Anno</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-          </select>
-          <select name="sezione" id="" required>
-                <option disabled selected value>Sezione</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <option value="D">D</option>
-            </select>
-            <select name="indirizzo" id="" required>
-                <option disabled selected value>Indirizzo</option>
-                <option value="INF">INF</option>
-                <option value="LSA">LSA</option>
-                <option value="RIM">RIM</option>
-                <option value="MEC">MEC</option>
-            </select>
-            <input class="fname" type="text" name="numTel" id="numTel" placeholder=" Num Telefono (non obbligatorio)">
-        </div>
-        
-        <button type="submit" href="/">Registrati</button>
-        <button type="reset" href="register.php">Annulla</button>
-      </form>
-    </div>
-  </body>
-        <!--
-        LA PASSWORD ALLA REGISTRAZIONE E' RANDOM-->
-    
-    <?php
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                    $nome = mysqli_real_escape_string($link, $_POST['nome']);
-                    $cognome = mysqli_real_escape_string($link, $_POST['cognome']);
-                    $nome_utente=$cognome."_".$nome;
-                    $email = mysqli_real_escape_string($link, $_POST['email']);
-                    //immagine profilo è di default
-                    $immagine_profilo='DEFAULT';
-                    $anno = mysqli_real_escape_string($link, $_POST['anno']);
-                    $sezione = mysqli_real_escape_string($link, $_POST['sezione']);
-                    $indirizzo = mysqli_real_escape_string($link, $_POST['indirizzo']);
-                    $sesso = mysqli_real_escape_string($link, $_POST['sesso']);
-                    
-                    //GENERO LA PASSWORD RANDOM
-                    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                    $randstring = '';
-                    for ($i = 0; $i < 10; $i++) {
-                        $index = rand(0, strlen($characters) - 1);
-                        $randstring .= $characters[$index];
-                    }
-                    $query= "INSERT INTO utente VALUES (' ', '$nome_utente', '$email', '$randstring', DEFAULT, '$anno', '$sezione','$indirizzo','$nome','$cognome',' ','$sesso')";
-                    $result= mysqli_query($link,$query);
-                    //echo "REGISTRAZIONE COMPLETATA";
-                    if($result)
-                    header("location: ../Login/");                
-    }
+        <div class="left-part">
 
-    ?>
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                <div class="title">
+                    <i class="fas fa-pencil-alt"></i>
+                    <h2>Register here</h2>
+                </div>
+                <div class="info">
+                    <input class="fname" type="text" name="nome" placeholder=" Nome">
+                    <input class="fname" type="text" name="cognome" placeholder=" Cognome">
+                    <input type="text" name="email" placeholder=" Email">
+                    <select name="sesso" id="" required>
+                        <option disabled selected value>Sesso</option>
+                        <option value="maschio">Maschio</option>
+                        <option value="femmina">Femmina</option>
+                    </select>
+                    <select name="anno" id="" required>
+                        <option disabled selected value>Anno</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <select name="sezione" id="" required>
+                        <option disabled selected value>Sezione</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                    </select>
+                    <select name="indirizzo" id="" required>
+                        <option disabled selected value>Indirizzo</option>
+                        <option value="INF">INF</option>
+                        <option value="LSA">LSA</option>
+                        <option value="RIM">RIM</option>
+                        <option value="MEC">MEC</option>
+                    </select>
+                    <input class="fname" type="text" name="numTel" id="numTel"
+                        placeholder=" Num Telefono (non obbligatorio)">
+                </div>
+
+                <button type="submit" href="/">Registrati</button>
+                <button type="reset" href="register.php">Annulla</button>
+            </form>
+        </div>
+</body>
+<!--
+        LA PASSWORD ALLA REGISTRAZIONE E' RANDOM-->
+
+<?php
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      
+        $nome = mysqli_real_escape_string($link, $_POST['nome']);
+        $cognome = mysqli_real_escape_string($link, $_POST['cognome']);
+        $nome_utente=$cognome."_".$nome;
+        $email = mysqli_real_escape_string($link, $_POST['email']);
+        //immagine profilo è di default
+        $immagine_profilo='DEFAULT';
+        $anno = mysqli_real_escape_string($link, $_POST['anno']);
+        $sezione = mysqli_real_escape_string($link, $_POST['sezione']);
+        $indirizzo = mysqli_real_escape_string($link, $_POST['indirizzo']);
+        $sesso = mysqli_real_escape_string($link, $_POST['sesso']);
+                    
+        //GENERO LA PASSWORD RANDOM
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randstring = '';
+        for ($i = 0; $i < 10; $i++) {
+          $index = rand(0, strlen($characters) - 1);
+          $randstring .= $characters[$index];
+        }
+        $query= "INSERT INTO utente VALUES (' ', '$nome_utente', '$email', '$randstring', DEFAULT, '$anno', '$sezione','$indirizzo','$nome','$cognome',' ','$sesso')";
+        $result= mysqli_query($link,$query);
+        //echo "REGISTRAZIONE COMPLETATA";
+        if($result)
+        header("location: ../Login/");                
+    }
+?>
 
 </body>
 

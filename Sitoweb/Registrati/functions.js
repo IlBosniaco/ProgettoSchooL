@@ -7,35 +7,39 @@ function seePassword(element) {
         x.type = "password";
     }
 }
-function comparePassword()
-{
-    var pw1 = document.getElementById("password").value;  
-    var pw2 = document.getElementById("conf_password").value;  
-    if(pw1=pw2)
-    {
+function onChange() {
+    const password = document.querySelector('input[name=password]');
+    const confirm = document.querySelector('input[name=conf_password]');
+    if (confirm.value === password.value) {
+        if (passwordValidation(password)) {
+            document.getElementById("demo").innerHTML = "Le password sono uguali: ";
+            document.getElementById("demo").style = 'color:green';
+            document.getElementById("editPwd").type = 'submit';
+        }
+        else{
+            
+        }
+    }
+    else {
+        document.getElementById("demo").style = 'color:red';
+        document.getElementById("demo").innerHTML = "Password non sono uguali: ";
+        document.getElementById("editPwd").type = 'hidden';
+    }
+}
+function passwordValidation(pw) {
+    //check empty password field
+    if (pw == "") {
+        return false;
+    }
+
+    //lunga almeno 8 caratteri
+    if (pw.length < 8) {
+        return false;
+    }
+    //massimo 15
+    if (pw.length > 15) {
+        return false;
+    } else {
         return true;
     }
-    return false;
 }
-function passwordValidation() {
-    var pw = document.getElementById("pswd").value;
-    //check empty password field
-    if(pw == "") {
-       document.getElementById("message").innerHTML = "**Fill the password please!";
-       return false;
-    }
-   
-   //lunga almeno 8 caratteri
-    if(pw.length < 8) {
-       document.getElementById("message").innerHTML = "**Password length must be atleast 8 characters";
-       return false;
-    }
-  
-  //massimo 15
-    if(pw.length > 15) {
-       document.getElementById("message").innerHTML = "**Password length must not exceed 15 characters";
-       return false;
-    } else {
-       alert("Password is correct");
-    }
-  }

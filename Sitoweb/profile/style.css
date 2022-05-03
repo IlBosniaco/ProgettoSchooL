@@ -38,19 +38,15 @@ body{
     color: #0062cc;
 }
 .profile-edit-btn {
-    padding: 15px 25px;
-    font-size: 24px;
-    text-align: center;
-    cursor: pointer;
-    outline: none;
-    color: #fff;
-    background-color: #04AA6D;
     border: none;
-    border-radius: 15px;
-    box-shadow: 0 9px #999;
+    border-radius: 1.5rem;
+    width: 70%;
+    padding: 2%;
+    font-weight: 600;
+    color: #6c757d;
 }
   
-.profile-edit-btn:hover {background-color: #3e8e41}
+.profile-edit-btn:hover {background-color: #00c6ff}
   
 .profile-edit-btn:active {
     background-color: black;
