@@ -14,7 +14,19 @@
     <div>
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
             <label for="materia">materia</label>
-            <input type="text" name="materia"><br><br>
+            <select name="materia" onchange="document.getElementById('selected_id').value=this.options[this.selectedIndex].text">
+                <option value=""></option>
+                <?php   
+                    require_once '../Login/config.php';
+                    $sql = "SELECT materia FROM materie";
+                    $result = mysqli_query($link,$sql);
+
+                    while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){                                                 
+                    echo "<option value='".$row['materia']."'>".$row['materia']."</option>";
+                    }   
+                        
+                ?>
+            </select><br><br>
             <label for="sesso">sesso</label>
             Maschio<input type="radio" name="sesso" value="M">Femmina<input type="radio" name="sesso" value="F"><br><br>
             <input type="submit" name="btn" value="Cerca">
@@ -70,6 +82,7 @@ if(!isset($_SESSION['uname'])){
                             echo "<th>sesso</th>";
                             echo "<th>materia</th>";
                             echo "<th>descrizione</th>";
+                            ecgo "<th>visualizza</th>"
                         echo"</tr>";
                     echo"</thead>";
                     echo"<tbody>";
@@ -82,6 +95,7 @@ if(!isset($_SESSION['uname'])){
                             echo "<td>".$row['materia']."</td>";
                             if($row['descrizione']!=null)
                                 echo "<td>".$row['descrizione']."</td>";
+                            echo "<td><a href='visualizza.php?id=".$row['id']."'>V</a></td>"
                         echo"</tr>";
                     }
                     echo"</tbody>";
