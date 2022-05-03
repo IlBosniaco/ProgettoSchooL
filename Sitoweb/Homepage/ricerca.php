@@ -82,7 +82,7 @@ if(!isset($_SESSION['uname'])){
                             echo "<th>sesso</th>";
                             echo "<th>materia</th>";
                             echo "<th>descrizione</th>";
-                            ecgo "<th>visualizza</th>"
+                            echo "<th>visualizza</th>";
                         echo"</tr>";
                     echo"</thead>";
                     echo"<tbody>";
@@ -95,7 +95,9 @@ if(!isset($_SESSION['uname'])){
                             echo "<td>".$row['materia']."</td>";
                             if($row['descrizione']!=null)
                                 echo "<td>".$row['descrizione']."</td>";
-                            echo "<td><a href='visualizza.php?id=".$row['id']."'>V</a></td>"
+                            else
+                                echo "<td/>";
+                            echo "<td><a href='visualizza.php?id=".$row['id_utente']."'>V</a></td>";
                         echo"</tr>";
                     }
                     echo"</tbody>";
