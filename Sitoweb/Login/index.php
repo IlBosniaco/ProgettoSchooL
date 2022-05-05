@@ -52,6 +52,7 @@
   </head>
   <body>
     <div class="center">
+      <center><img  src="../Homepage/Image/logo_small.png" width="400px"></center>
       <h1>Login</h1>
       <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>">
         <div class="txt_field">
@@ -65,7 +66,7 @@
           <label>Password</label>
         </div>
         <div class="pass">
-        <a href="https://agora.ismonnet.it/resetPsw/capResetPsw-mail.php">password dimenticata?</a>
+        <a href="forgotpassword.php">password dimenticata?</a>
         </div>
         <input type="submit" value="Login" name="but_submit">
         <div class="signup_link">
