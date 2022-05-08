@@ -270,7 +270,7 @@ if(!isset($_SESSION['uname'])){
                                     <label>Name</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <p>Kshiti Ghelani</p>
+                                    <p><?php echo $row['nome_utente']?></p>
                                 </div>
                             </div>
                             <div class="row">
