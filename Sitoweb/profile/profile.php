@@ -23,7 +23,10 @@ if(!isset($_SESSION['uname'])){
 <body>
     <!--il mio profilo-->
     <?php
+        include_once '../header/navbar.php';
+    ?>
     
+    <?php
     require_once '../Database/config.php';
     $id=$_SESSION['id'];
     $sql="SELECT * FROM utente WHERE id='$id'";
@@ -33,33 +36,13 @@ if(!isset($_SESSION['uname'])){
         if(mysqli_stmt_execute($stmt)){
             
             $result = mysqli_stmt_get_result($stmt);   
-            $row = mysqli_fetch_array($result);
-            $img_profilo=$row['immagine_profilo'];
-              /*echo"<tr>";
-                  echo "<td>".$row['id']."</td>";
-                  echo "<td>".$row['nome_utente']."</td>";
-                  echo "<td>".$row['email']."</td>";
-                  echo "<td>".$row['password']."</td>";
-                  echo "<td>".$row['immagine_profilo']."</td>";
-                  echo "<td>".$row['anno']."</td>";
-                  echo "<td>".$row['sezione']."</td>";
-                  echo "<td>".$row['indirizzo']."</td>";
-                  echo "<td>".$row['numTelefono']."</td>";
-                  echo "<td>".$row['sesso']."</td>";                  
-              echo"</tr>";*/
-              
+            $row = mysqli_fetch_array($result);              
             }
     }else{
         echo "something went wrong";
     }
     mysqli_stmt_close($stmt);
-
-
-    include_once '../header/header.php';
 ?>
-
-    
-
     <?php
     if ($_SERVER["REQUEST_METHOD"]=="POST") {
         if(!empty($_FILES['image']['name'])){//se è settato nuova immagine

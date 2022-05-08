@@ -1,6 +1,6 @@
 <ul class="menu-bar">
         <li>
-          <a href="../Homepage/index.php"><img src="../Homepage/Image/logo_white_large.png" class="logo"></a> 
+          <a href="../Homepage/index.php"><img src="../logo/logo_white_large.png" class="logo"></a> 
         </li>    
         <li>
           <a href="../profile/profile.php">Il mio profilo </a>
@@ -19,6 +19,6 @@
         </li>
 
         <li>
-        <a href="../Profile/profile.php"><img src='<?= $img_profilo ?>' class="profile"></a>   <?php echo $_SESSION['uname'] ?>
+        <a href="../profile/profile.php"><img src='<?= $_SESSION['img'] ?>' class="profile"></a>   <?php echo $_SESSION['uname'] ?>
         </li>
-      </ul>
+</ul>

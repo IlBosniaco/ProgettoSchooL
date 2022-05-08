@@ -28,6 +28,7 @@ $_SESSION['id']=$row["id"];*/
             $result = mysqli_stmt_get_result($stmt);
             while ($row = mysqli_fetch_array($result)) {
               $img_profilo=$row['immagine_profilo'];
+              $_SESSION['img']=$img_profilo;
             }
 
         }
@@ -37,7 +38,7 @@ $_SESSION['id']=$row["id"];*/
 
     mysqli_stmt_close($stmt);
 
-    include '../header/header.php'
+    include '../header/navbar.php'
 ?>   
 
       

@@ -48,11 +48,11 @@
     <meta charset="utf-8">
     <title>Login sitoweb</title>
     <link rel="stylesheet" href="loginstyle.css">
-    <link rel="icon" href="Image/jean_monnet_logo.jfif">
+    <link rel="icon" href="../logo/logo_small_icon_only.png">
   </head>
   <body>
     <div class="center">
-      <center><img  src="../Homepage/Image/logo_small.png" width="400px"></center>
+      <center><img  src="../logo/logo_small.png" width="400px"></center>
       <h1>Login</h1>
       <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>">
         <div class="txt_field">
