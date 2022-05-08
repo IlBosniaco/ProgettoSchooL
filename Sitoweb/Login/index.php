@@ -4,9 +4,9 @@
   //se sessioneè gà attiva passa alla pagina della sessione
   if(isset($_SESSION['uname'])){
     header('Location: ../Homepage/index.php');
+    exit();
   }
-?>
-<?php
+
   if(isset($_POST['but_submit'])){
     include "../Database/config.php";
     $uname=mysqli_real_escape_string($link,$_POST['uname']);
@@ -47,7 +47,7 @@
   <head>
     <meta charset="utf-8">
     <title>Login sitoweb</title>
-    <link rel="stylesheet" href="stylee.css">
+    <link rel="stylesheet" href="loginstyle.css">
     <link rel="icon" href="Image/jean_monnet_logo.jfif">
   </head>
   <body>

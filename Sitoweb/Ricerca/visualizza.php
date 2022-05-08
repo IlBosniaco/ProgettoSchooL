@@ -9,7 +9,7 @@
 <body>
 <?php
     if (isset($_GET["id"])&& !empty(trim($_GET["id"]))) {
-        require_once '../Login/config.php';
+        require_once '../Database/config.php';
     
         $sql="SELECT * FROM tutor INNER JOIN utente ON tutor.id_utente=utente.id INNER JOIN materiatutor ON tutor.id_utente=materiatutor.idtutor INNER JOIN materie ON materiatutor.idmaterie=materie.id WHERE utente.id=?";
     
