@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Apr 29, 2022 alle 12:03
--- Versione del server: 10.4.22-MariaDB
--- Versione PHP: 8.0.13
+-- Creato il: Mag 09, 2022 alle 15:08
+-- Versione del server: 10.4.21-MariaDB
+-- Versione PHP: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -57,7 +57,8 @@ CREATE TABLE `materiatutor` (
 
 INSERT INTO `materiatutor` (`idtutor`, `idmaterie`) VALUES
 (2, 1),
-(2, 2);
+(2, 2),
+(9, 4);
 
 -- --------------------------------------------------------
 
@@ -100,7 +101,8 @@ CREATE TABLE `tutor` (
 --
 
 INSERT INTO `tutor` (`id_utente`, `descrizione`, `valutazione`, `numero_recensioni`, `prezzi_ora`, `link_meet`) VALUES
-(2, NULL, NULL, NULL, 20, 'https://meet.google.com/thd-athe-obj');
+(2, NULL, NULL, NULL, 20, 'https://meet.google.com/thd-athe-obj'),
+(9, 'sono una brava tutor', NULL, NULL, 15, 'https://meet.google.com/thd-athe-obj');
 
 -- --------------------------------------------------------
 
@@ -129,7 +131,8 @@ CREATE TABLE `utente` (
 
 INSERT INTO `utente` (`id`, `nome_utente`, `email`, `password`, `immagine_profilo`, `anno`, `sezione`, `indirizzo`, `nome`, `cognome`, `numTelefono`, `sesso`) VALUES
 (1, 'rossi_mario', 'rossi_mario@ismonnet.onmicrosoft.com', '1234', '../Immagini_profilo/rossi_mario.jpg', 5, 'B', 'inf', 'mario', 'rossi', '333451', 'M'),
-(2, 'conti_pippo', 'conti_pippo@ismonnet.onmicrosoft.com', '1234', 'https://png.pngtree.com/png-vector/20190223/ourlarge/pngtree-profile-line-black-icon-png-image_691065.jpg', 1, 'B', 'inf', 'conti', 'pippo', '333452', 'M');
+(2, 'conti_pippo', 'conti_pippo@ismonnet.onmicrosoft.com', '1234', 'https://png.pngtree.com/png-vector/20190223/ourlarge/pngtree-profile-line-black-icon-png-image_691065.jpg', 1, 'B', 'inf', 'conti', 'pippo', '333452', 'M'),
+(9, 'sasageyo', 'sasageyo@gmail.com', 'sasageyo', 'bruh', 3, 'C', 'mec', 'sasa', 'geyo', '23456789', 'F');
 
 --
 -- Indici per le tabelle scaricate
@@ -188,7 +191,7 @@ ALTER TABLE `materie`
 -- AUTO_INCREMENT per la tabella `utente`
 --
 ALTER TABLE `utente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Limiti per le tabelle scaricate
