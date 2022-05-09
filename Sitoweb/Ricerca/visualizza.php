@@ -11,12 +11,13 @@
     if (isset($_GET["id"])&& !empty(trim($_GET["id"]))) {
         require_once '../Database/config.php';
     
-        $sql="SELECT * FROM tutor INNER JOIN utente ON tutor.id_utente=utente.id INNER JOIN materiatutor ON tutor.id_utente=materiatutor.idtutor INNER JOIN materie ON materiatutor.idmaterie=materie.id WHERE utente.id=?";
+        $sql="SELECT * FROM tutor INNER JOIN utente ON tutor.id_utente=utente.id INNER JOIN materiatutor ON tutor.id_utente=materiatutor.idtutor INNER JOIN materie ON materiatutor.idmaterie=materie.id WHERE utente.id=? AND materia=?";
     
         if($stmt = mysqli_prepare($link,$sql)){
-            mysqli_stmt_bind_param($stmt, "i", $param_id);
+            mysqli_stmt_bind_param($stmt, "is", $param_id, $param_materia);
     
             $param_id = trim($_GET["id"]);
+            $param_materia = trim($_GET["materia"]);
             
             if(mysqli_stmt_execute($stmt)){
                 $result = mysqli_stmt_get_result($stmt);

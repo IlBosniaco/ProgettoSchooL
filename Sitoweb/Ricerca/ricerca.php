@@ -11,11 +11,58 @@ if(!isset($_SESSION['uname'])){
 <head>
     <meta charset="UTF-8">
     <title>HomePage</title>
-    <!--<link rel="stylesheet" href="ricercastyle.css">-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!--link card-->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="../Stylesheets/style.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="../Registrati/functions.js"></script>
+
+    <style>
+    .card {
+        width: 400px;
+        border: none;
+        border-radius: 10px;
+
+        background-color: #fff;
+    }
+
+
+
+    .stats {
+
+        background: #f2f5f8 !important;
+
+        color: #000 !important;
+    }
+
+    .articles {
+        font-size: 10px;
+        color: #a1aab9;
+    }
+
+    .number1 {
+        font-weight: 500;
+    }
+
+    .followers {
+        font-size: 10px;
+        color: #a1aab9;
+
+    }
+
+    .number2 {
+        font-weight: 500;
+    }
+
+    .rating {
+        font-size: 10px;
+        color: #a1aab9;
+    }
+
+    .number3 {
+        font-weight: 500;
+    }
+    </style>
 </head>
 
 <body>
@@ -31,7 +78,7 @@ if(!isset($_SESSION['uname'])){
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="title">
                             <i class="fas fa-pencil-alt"></i>
-                            <h2>Search here</h2>
+                            <h2>FILTRI RICERCA</h2>
                         </div>
                         <div class="info">
                             <select name="sesso" id="" required>
@@ -40,9 +87,9 @@ if(!isset($_SESSION['uname'])){
                                 <option value="femmina">Femmina</option>
                             </select>
                             <select name="materia"
-                                onchange="document.getElementById('selected_id').value=this.options[this.selectedIndex].text">
+                                onchange="document.getElementById('selected_id').value=this.options[this.selectedIndex].text"
+                                required>
                                 <option disabled selected value>Materia</option>
-                                <option value=""></option>
                                 <?php  
                                 require_once '../Database/config.php';
                                 $sql = "SELECT materia FROM materie";
@@ -67,15 +114,15 @@ if(!isset($_SESSION['uname'])){
 
             <?php
                     require_once '../Database/config.php';
-                    $sql="SELECT * FROM tutor INNER JOIN utente ON tutor.id_utente=utente.id INNER JOIN materiatutor ON tutor.id_utente=materiatutor.idtutor INNER JOIN materie ON materiatutor.idmaterie=materie.id";
+                    $sql="SELECT * FROM tutor INNER JOIN utente ON tutor.id_utente=utente.id INNER JOIN materiatutor ON tutor.id_utente=materiatutor.idtutor INNER JOIN materie ON materiatutor.idmaterie=materie.id ";
                     $query=false;
                     if($_SERVER["REQUEST_METHOD"] == "post" || $_SERVER["REQUEST_METHOD"] == "POST"){ 
                         $query=true;
                         if(empty(trim($_POST["materia"]))){
-                            $sql.=" WHERE materia != ? ";
-                            $param_materia="";
+                            $sql.="WHERE  materia != ? ";
+                            $param_materia="";//materia!=all vuoldire che cerca tutte le materie
                         }else{
-                            $sql.=" WHERE materia = ? ";
+                            $sql.="WHERE materia = ? ";
                             $param_materia = trim($_POST["materia"]);
                         }
                         
@@ -85,50 +132,56 @@ if(!isset($_SESSION['uname'])){
                             $param_sesso="";
                         }else{
                             $sql.=" AND sesso = ?";
-                            $param_sesso = trim($_POST["sesso"]);
+                            $sesso = trim($_POST["sesso"]);
+                            $param_sesso = $sesso[0]; //prendo primo carattere perche nel database salvato come M/F
                         }        
                     }
-
-                    $sql.=" GROUP BY nome_utente";
-
+                    //id_utente     descrizione     valutazione     numero_recensioni   prezzi_ora  link_meet   nome_utente 
+                    //email     password    immagine_profilo   anno  sezione  indirizzo    nome   cognome   numTelefono   sesso     materia 
                     if($stmt = mysqli_prepare($link,$sql)){
                         if($query==true)
                             mysqli_stmt_bind_param($stmt, "ss", $param_materia, $param_sesso);
 
                         if(mysqli_stmt_execute($stmt)){
                             $result = mysqli_stmt_get_result($stmt);
-                            if(mysqli_num_rows($result)>0){
-                            echo "<table style='text-align:center;'>";
-                                    echo"<thead>";
-                                        echo"<tr>";
-                                            echo "<th>nome utente</th>";
-                                            echo "<th>nome</th>";
-                                            echo "<th>cognome</th>";
-                                            echo "<th>sesso</th>";
-                                            echo "<th>materia</th>";
-                                            echo "<th>descrizione</th>";
-                                            echo "<th>visualizza</th>";
-                                        echo"</tr>";
-                                    echo"</thead>";
-                                    echo"<tbody>";
+                            if(mysqli_num_rows($result)>0){                              
                                     while ($row = mysqli_fetch_array($result)) {
-                                        if($row['id']!=$_SESSION['id']){
-                                            echo"<tr>";
-                                                echo "<td>".$row['nome_utente']."</td>";
-                                                echo "<td>".$row['nome']."</td>";
-                                                echo "<td>".$row['cognome']."</td>";
-                                                echo "<td>".$row['sesso']."</td>";
-                                                echo "<td>".$row['materia']."</td>";
-                                                if($row['descrizione']!=null)
-                                                    echo "<td>".$row['descrizione']."</td>";
-                                                else
-                                                    echo "<td/>";
-                                                echo "<td><a href='visualizza.php?id=".$row['id_utente']."'>V</a></td>";
-                                            echo"</tr>";
+                                        if($row['id_utente']!=$_SESSION['id']){
+                                            echo "<div class='container mt-5 d-flex justify-content-center'>";
+                                            echo "<div class='card p-3'>";
+                                            echo "<div class='d-flex align-items-center'>";
+                                            echo "<div class='image'>";
+                                            echo "<img src='".$row['immagine_profilo']."' class='profile'>";
+                                            echo "</div>";
+                                            echo "<div class='ml-4 w-100'>";
+                                            echo "<h4 class='mb-0 mt-0'>".$row['nome_utente']."</h4>";
+                                            echo "<span>".$row['materia']."</span>";
+                                            echo "<div class='p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats'>";
+                                            echo "<div class='d-flex flex-column'>";
+                                            echo "<span class='articles'>Classe</span>";
+                                            echo "<span class='number1'>".$row['anno'].$row['sezione'].$row['indirizzo']."</span>";
+                                            echo "</div>";
+                                            echo "<div class='d-flex flex-column'>";
+                                            echo "<span class='followers'>Prezzo</span>";
+                                            echo "<span class='number2'>".$row['prezzi_ora']."€/h</span>";
+                                            echo "</div>";
+                                            echo "<div class='d-flex flex-column'>";
+                                            echo "<span class='rating'>Rating</span>";
+                                            echo "<span class='number3'>".$row['valutazione']."</span>";
+                                            echo "</div>";
+                                            echo "</div>";
+                                            echo "<div class='button mt-2 d-flex flex-row align-items-center'>";
+        
+                                            echo "<a href='visualizza.php?id=".$row['id_utente']."&materia=".$row['materia']."'><button class='btn btn-sm btn-outline-primary w-100'>Dettagli</button></a>";
+                                            echo "<button class='btn btn-sm btn-primary w-100 ml-2'>Prenota</button>";
+                                            echo "</div>";
+                                            echo "</div>";
+                                            echo "</div>";
+                                            echo "</div>";
+                                            echo "</div>"; 
                                         }
-                                    }
-                                    echo"</tbody>";
-                                echo"</table>";
+                                    }    
+                                                                   
                             }else{
                                 echo "nessun risultato trovato";
                             }
@@ -148,38 +201,7 @@ if(!isset($_SESSION['uname'])){
     </div>
 
 
-    <!--
-QUESTA E' LA CARD CHE VIENE VISUALIZZATA QUANDO FA IL WHILE
-        <form action="" method="post">
-    <div class="container mt-5 d-flex justify-content-center">
-    <div class="card p-3">
-    <div class="d-flex align-items-center">
-    <div class="ml-3 w-100">
-       <h4 class="mb-0 mt-0"><?php ?></h4>
-       <span>Senior Journalist</span>
-       <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
-        <div class="d-flex flex-column">
-            <span class="articles">Articles</span>
-            <span class="number1">38</span>
-        </div>
-        <div class="d-flex flex-column">
-            <span class="followers">Followers</span>
-            <span class="number2">980</span>
-        </div>
-        <div class="d-flex flex-column">
-            <span class="rating">Rating</span>
-            <span class="number3">8.9</span>  
-        </div> 
-       </div>
-       <div class="button mt-2 d-flex flex-row align-items-center">
-        <button class="btn btn-sm btn-outline-primary w-100">Chat</button>
-        <button class="btn btn-sm btn-primary w-100 ml-2">Follow</button>     
-       </div>
-    </div>   
-    </div>
-</div>
-</div>
-</form>-->
+
 
 </body>
 
