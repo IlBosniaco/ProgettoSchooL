@@ -80,6 +80,7 @@ if(!isset($_SESSION['uname'])){
                     $sql="UPDATE utente SET immagine_profilo='$new_path' WHERE id=$id";
                     if ($link->query($sql) === TRUE) {
                         echo "<div class='alert alert-success' role='alert'>immagine caricata correttamente.</div>";
+                        $_SESSION['img']=$new_path;
                     } else {
                         echo "Error updating record: " . $link->error;
                     }
@@ -89,7 +90,7 @@ if(!isset($_SESSION['uname'])){
         else{
             echo "<div class='alert alert-danger' role='alert'>Non hai selezionato nulla</div>";
         }
-        header("Refresh:1");
+        header("Refresh:0");
     }
 ?>
     <div class="container emp-profile">
