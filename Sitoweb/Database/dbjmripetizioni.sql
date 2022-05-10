@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 09, 2022 alle 15:08
--- Versione del server: 10.4.21-MariaDB
--- Versione PHP: 8.0.12
+-- Creato il: Mag 10, 2022 alle 22:59
+-- Versione del server: 10.4.22-MariaDB
+-- Versione PHP: 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -48,17 +48,18 @@ INSERT INTO `lezioni` (`id`, `id_tutor`, `id_alunno`) VALUES
 
 CREATE TABLE `materiatutor` (
   `idtutor` int(11) NOT NULL,
-  `idmaterie` int(11) NOT NULL
+  `idmaterie` int(11) NOT NULL,
+  `descrizione` varchar(250) DEFAULT NULL,
+  `prezzi_ora` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dump dei dati per la tabella `materiatutor`
 --
 
-INSERT INTO `materiatutor` (`idtutor`, `idmaterie`) VALUES
-(2, 1),
-(2, 2),
-(9, 4);
+INSERT INTO `materiatutor` (`idtutor`, `idmaterie`, `descrizione`, `prezzi_ora`) VALUES
+(2, 1, 'Equazione e Teorema di Pitagora', 10),
+(2, 2, 'Divina Commedia, promessi sposi', 20);
 
 -- --------------------------------------------------------
 
@@ -79,7 +80,8 @@ INSERT INTO `materie` (`id`, `materia`) VALUES
 (1, 'matematica'),
 (2, 'italiano'),
 (3, 'storia'),
-(4, 'informatica');
+(4, 'informatica'),
+(5, 'inglese');
 
 -- --------------------------------------------------------
 
@@ -89,10 +91,8 @@ INSERT INTO `materie` (`id`, `materia`) VALUES
 
 CREATE TABLE `tutor` (
   `id_utente` int(11) NOT NULL,
-  `descrizione` text DEFAULT NULL,
   `valutazione` int(11) DEFAULT NULL,
   `numero_recensioni` int(11) DEFAULT NULL,
-  `prezzi_ora` float NOT NULL,
   `link_meet` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -100,9 +100,8 @@ CREATE TABLE `tutor` (
 -- Dump dei dati per la tabella `tutor`
 --
 
-INSERT INTO `tutor` (`id_utente`, `descrizione`, `valutazione`, `numero_recensioni`, `prezzi_ora`, `link_meet`) VALUES
-(2, NULL, NULL, NULL, 20, 'https://meet.google.com/thd-athe-obj'),
-(9, 'sono una brava tutor', NULL, NULL, 15, 'https://meet.google.com/thd-athe-obj');
+INSERT INTO `tutor` (`id_utente`, `valutazione`, `numero_recensioni`, `link_meet`) VALUES
+(2, NULL, NULL, 'https://meet.google.com/thd-athe-obj');
 
 -- --------------------------------------------------------
 
@@ -130,9 +129,8 @@ CREATE TABLE `utente` (
 --
 
 INSERT INTO `utente` (`id`, `nome_utente`, `email`, `password`, `immagine_profilo`, `anno`, `sezione`, `indirizzo`, `nome`, `cognome`, `numTelefono`, `sesso`) VALUES
-(1, 'rossi_mario', 'rossi_mario@ismonnet.onmicrosoft.com', '1234', '../Immagini_profilo/rossi_mario.jpg', 5, 'B', 'inf', 'mario', 'rossi', '333451', 'M'),
-(2, 'conti_pippo', 'conti_pippo@ismonnet.onmicrosoft.com', '1234', 'https://png.pngtree.com/png-vector/20190223/ourlarge/pngtree-profile-line-black-icon-png-image_691065.jpg', 1, 'B', 'inf', 'conti', 'pippo', '333452', 'M'),
-(9, 'sasageyo', 'sasageyo@gmail.com', 'sasageyo', 'bruh', 3, 'C', 'mec', 'sasa', 'geyo', '23456789', 'F');
+(1, 'rossi_mario', 'rossi_mario@ismonnet.onmicrosoft.com', '1234', '../Immagini_profilo/rossi_mario_profile.jpg', 5, 'B', 'inf', 'mario', 'rossi', '333451', 'M'),
+(2, 'conti_pippo', 'conti_pippo@ismonnet.onmicrosoft.com', '1234', '../Immagini_profilo/conti_pippo_profile.jpg', 1, 'B', 'inf', 'conti', 'pippo', '333452', 'M');
 
 --
 -- Indici per le tabelle scaricate
@@ -185,13 +183,13 @@ ALTER TABLE `lezioni`
 -- AUTO_INCREMENT per la tabella `materie`
 --
 ALTER TABLE `materie`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT per la tabella `utente`
 --
 ALTER TABLE `utente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Limiti per le tabelle scaricate

@@ -10,12 +10,13 @@ if(!isset($_SESSION['uname'])){
 
 <head>
     <meta charset="UTF-8">
-    <title>HomePage</title>
+    <title>Cerca Tutor</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!--link card-->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="../Stylesheets/style.css">
     <link rel="stylesheet" href="ricercastyle.css">
+    <link rel="icon" href="../logo/logo_small_icon_only.png">
     <script src="../Registrati/functions.js"></script>
 </head>
 

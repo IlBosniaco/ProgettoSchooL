@@ -46,7 +46,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Login sitoweb</title>
+    <title>Login</title>
     <link rel="stylesheet" href="loginstyle.css">
     <link rel="icon" href="../logo/logo_small_icon_only.png">
   </head>

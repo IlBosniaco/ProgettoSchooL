@@ -14,8 +14,9 @@ if(!isset($_SESSION['uname'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <link rel="stylesheet" href="visualizzastyle.css">
     <link rel="stylesheet" href="../Stylesheets/style.css">
+    <link rel="stylesheet" href="visualizzastyle.css">
+
 </head>
 <body>
 <?php
@@ -41,7 +42,7 @@ if(!isset($_SESSION['uname'])){
                     <div class="row">
                         <div class="col-md-4">
                             <div class="profile-img">
-                                <img  src="<?php 
+                                <img  class="logo" style="vertical-align: middle; width: 15em; height: 15em; border-radius: 50%;" src="<?php 
                                     echo $row['immagine_profilo'];
                                 ?>" style="width:250px;height:200px;" >
                                 
@@ -72,17 +73,10 @@ if(!isset($_SESSION['uname'])){
                         <div class="col-md-8">
                             <div class="tab-content profile-tab" id="myTabContent">
                                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                    <br>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label>Username</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p><?php echo $row['nome_utente']?></p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Name</label>
+                                            <label>Nome</label>
                                         </div>
                                         <div class="col-md-6">
                                             <p><?php echo $row['nome']." ".$row['cognome']?></p>
@@ -104,58 +98,52 @@ if(!isset($_SESSION['uname'])){
                                             <p><?php echo $row['sesso']?></p>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-6">
-                                        <div class="profile-head">
-                                            <br>
-                                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                                <li class="nav-item">
-                                                    <a class="nav-link active" id="home-tab">CREDENZIALI</a>
-                                                </li>
-                                            </ul>
+                                    
+                                    <div class="row">       
+                                        <div class="col-md-6">
+                                            <label>materia:</label>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Email</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p><?php echo $row['email']?></p>
-                                    </div>
-                                </div>
+                                        <div class="col-md-6">
+                                            <p><?php echo $row['materia']?></p>
+                                        </div>
+                                    </div>                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>prezzo:</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p><?php echo $row['prezzi_ora']."€/h"?></p>
+                                        </div>
+                                    </div>  
+                                    
+                                    <?php
+                                        if($row['descrizione']!=NULL){
+                                            echo "<br>";
+                                            echo "<div class='row'>";
+                                                echo "<div class='col-md-2'>";
+                                                    echo '<div class="profile-head">';
+                                                        echo '<ul class="nav nav-tabs" id="myTab" role="tablist">';
+                                                            echo '<li class="nav-item">';
+                                                                echo '<a class="nav-link active" id="home-tab">DESCRIZIONE</a>';
+                                                            echo '</li>';
+                                                        echo '</ul>';
+                                                    echo '</div>';
+                                                echo '</div>'; 
+                                            echo '</div>';
+                                            echo '<div class="row">';
+                                                    echo "<p>".$row['descrizione']."</p>";                                            
+                                            echo '</div>'; 
+                                        }
+                                    ?>                                  
+                                </div>                             
                             </div>
-                        </div>
+                        </div> 
                     </div>
-                    <?php
-                        if($row['descrizione']!=NULL){
-                            echo "<br><br><br>";
-                            echo "<div class='row'>";
-                                echo "<div class='col-md-2'>";
-                                    echo '<div class="profile-head">';
-                                        echo '<ul class="nav nav-tabs" id="myTab" role="tablist">';
-                                            echo '<li class="nav-item">';
-                                                echo '<a class="nav-link active" id="home-tab">DESCRIZIONE</a>';
-                                            echo '</li>';
-                                        echo '</ul>';
-                                    echo '</div>';
-                                echo '</div>'; 
-                            echo '</div>';
-                            echo '<div class="row">';
-                                echo '<div class="col-md-6">';
-                                    echo "<p>".$row['descrizione']."</p>";
-                                echo '</div>';
-                            echo '</div>'; 
-                        }
-                    ?>
-                    <br><br><br>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <form action="prenota.php" action="post">
-                                <input type="submit" value="prenota">
-                            </form>
-                        </div>
-                    </div>
+                    
+                    <br>
+                    <form action="prenota.php" action="post">
+                        <center><input type="submit" value="PRENOTA" class="profile-edit-btn" id="editPwd" value="Edit Password"></center>
+                    </form>
 
                 </div>
             <?php

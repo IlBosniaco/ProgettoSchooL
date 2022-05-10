@@ -96,6 +96,7 @@ if(!isset($_SESSION['uname'])){
     }
 ?>
     <div class="container emp-profile">
+        <h1 align="center">IL MIO PROFILO</h1>
         <form method="post" name="upImage" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-4">

@@ -13,8 +13,8 @@ $_SESSION['id']=$row["id"];*/
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../Stylesheets/style.css">
-    
-    <title>HomePage</title>
+    <link rel="icon" href="../logo/logo_small_icon_only.png">
+    <title>Homepage</title>
 </head>
 <body>
 <?php
