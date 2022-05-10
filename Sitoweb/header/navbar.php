@@ -3,10 +3,7 @@
           <a href="../Homepage/index.php"><img src="../logo/logo_white_large.png" class="logo"></a> 
         </li>    
         <li>
-          <a href="../profile/profile.php">Il mio profilo </a>
-        </li>
-        <li>
-          Lezioni
+          Le mie lezioni
         </li>
         <li>
           Diventa tutor

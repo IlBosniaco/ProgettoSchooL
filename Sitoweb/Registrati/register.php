@@ -15,9 +15,10 @@ require_once '../Database/config.php';
         integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <style>
-        a:link, a:visited {
-        color: white;       
-        }
+    a:link,
+    a:visited {
+        color: white;
+    }
     </style>
 </head>
 
@@ -64,8 +65,8 @@ require_once '../Database/config.php';
                     <input class="fname" type="text" name="numTel" id="numTel"
                         placeholder=" Num Telefono (non obbligatorio)">
                 </div>
-            <!--LA PASSWORD ALLA REGISTRAZIONE E' RANDOM-->
-            <?php
+                <!--LA PASSWORD ALLA REGISTRAZIONE E' RANDOM-->
+                <?php
                     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     
                         $nome = mysqli_real_escape_string($link, $_POST['nome']);
@@ -100,9 +101,25 @@ require_once '../Database/config.php';
                                         }
                                         $query= "INSERT INTO utente VALUES (' ', '$nome_utente', '$email', '$randstring', DEFAULT, '$anno', '$sezione','$indirizzo','$nome','$cognome',' ','$sesso')";
                                         $result= mysqli_query($link,$query);
-                                        echo '<div class="alert alert-success" style="display:flex; justify-content: center; color:green;  " role="alert">';
-                                        echo 'Registrazione completata'.'<a href="../Login/index.php">Torna alla login</a>';
-                                        echo '</div>';
+                                        //invio email
+                                        
+                                        
+                                        $to= $email;//email utente
+                                        $subject="Registrazione Completata";
+                                        $message="nomeutente:".$nome_utente."\n\npassword: ".$randstring;
+                                        $sender="";
+                                        //$from="corsophp@gmail.com"
+                                        if(mail($to,$subject,$message,$sender))
+                                        {
+                                            echo "è stata inviata un email con la password temporanea \n";
+                                            echo '<div class="alert alert-success" style="display:flex; justify-content: center; color:green;  " role="alert">';
+                                            echo 'Registrazione completata'.'<a href="../Login/index.php">Torna alla login</a>';
+                                            echo '</div>';
+                                        }
+                                        else{
+                                            echo "errore nell'invio email";
+                                        }
+                                       
                                     }     
                                 }
                                                                
@@ -113,5 +130,7 @@ require_once '../Database/config.php';
                 <button type="reset" href="register.php">Annulla</button>
             </form>
         </div>
+    </div>
 </body>
+
 </html>

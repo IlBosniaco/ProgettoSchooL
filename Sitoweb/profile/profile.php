@@ -36,8 +36,9 @@ if(!isset($_SESSION['uname'])){
         if(mysqli_stmt_execute($stmt)){
             
             $result = mysqli_stmt_get_result($stmt);   
-            $row = mysqli_fetch_array($result);              
-            }
+            $row = mysqli_fetch_array($result); 
+            $tmpIMG=$row['immagine_profilo'];             
+        }
     }else{
         echo "something went wrong";
     }
@@ -45,6 +46,7 @@ if(!isset($_SESSION['uname'])){
 ?>
     <?php
     if ($_SERVER["REQUEST_METHOD"]=="POST") {
+        
         if(!empty($_FILES['image']['name'])){//se è settato nuova immagine
             $errors= array();
             $file_name = $_FILES['image']['name'];
@@ -98,10 +100,12 @@ if(!isset($_SESSION['uname'])){
             <div class="row">
                 <div class="col-md-4">
                     <div class="profile-img">
-                        <img src="<?php echo $row['immagine_profilo']?>">
-                        <div class="file btn btn-lg btn-primary">
+                        <img  src="<?php 
+                            echo $row['immagine_profilo'];
+                        ?>" style="width:250px;height:200px;" >
+                        <div class="file btn btn-lg btn-primary" style="width:250px;height:40px;">
                             Seleziona nuova foto profilo
-                            <input type="file" name="image" />
+                            <input type="file" name="image"/>
                         </div>
                     </div>
                 </div>
@@ -145,7 +149,7 @@ if(!isset($_SESSION['uname'])){
                                     <label>Name</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <p><?php echo $row['nome_utente']?></p>
+                                    <p><?php echo $row['nome']." ".$row['cognome']?></p>
                                 </div>
                             </div>
                             <div class="row">
