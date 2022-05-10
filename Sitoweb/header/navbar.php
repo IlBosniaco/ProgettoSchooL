@@ -16,6 +16,6 @@
         </li>
 
         <li>
-        <a href="../profile/profile.php"><img src='<?= $_SESSION['img'] ?>' class="profile"></a>   <?php echo $_SESSION['uname'] ?>
+        <a href="../profile/profile.php"><img src='<?= $_SESSION['img'] ?>' class="profile"> <?php echo $_SESSION['uname'] ?></a>   
         </li>
 </ul>

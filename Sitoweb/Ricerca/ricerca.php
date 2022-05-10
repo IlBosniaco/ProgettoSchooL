@@ -15,54 +15,8 @@ if(!isset($_SESSION['uname'])){
     <!--link card-->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="../Stylesheets/style.css">
+    <link rel="stylesheet" href="ricercastyle.css">
     <script src="../Registrati/functions.js"></script>
-
-    <style>
-    .card {
-        width: 400px;
-        border: none;
-        border-radius: 10px;
-
-        background-color: #fff;
-    }
-
-
-
-    .stats {
-
-        background: #f2f5f8 !important;
-
-        color: #000 !important;
-    }
-
-    .articles {
-        font-size: 10px;
-        color: #a1aab9;
-    }
-
-    .number1 {
-        font-weight: 500;
-    }
-
-    .followers {
-        font-size: 10px;
-        color: #a1aab9;
-
-    }
-
-    .number2 {
-        font-weight: 500;
-    }
-
-    .rating {
-        font-size: 10px;
-        color: #a1aab9;
-    }
-
-    .number3 {
-        font-weight: 500;
-    }
-    </style>
 </head>
 
 <body>
@@ -81,14 +35,13 @@ if(!isset($_SESSION['uname'])){
                             <h2>FILTRI RICERCA</h2>
                         </div>
                         <div class="info">
-                            <select name="sesso" id="" required>
+                            <select name="sesso" id="">
                                 <option disabled selected value>Sesso</option>
                                 <option value="maschio">Maschio</option>
                                 <option value="femmina">Femmina</option>
                             </select>
                             <select name="materia"
-                                onchange="document.getElementById('selected_id').value=this.options[this.selectedIndex].text"
-                                required>
+                                onchange="document.getElementById('selected_id').value=this.options[this.selectedIndex].text">
                                 <option disabled selected value>Materia</option>
                                 <?php  
                                 require_once '../Database/config.php';
@@ -118,7 +71,7 @@ if(!isset($_SESSION['uname'])){
                     $query=false;
                     if($_SERVER["REQUEST_METHOD"] == "post" || $_SERVER["REQUEST_METHOD"] == "POST"){ 
                         $query=true;
-                        if(empty(trim($_POST["materia"]))){
+                        if(empty($_POST["materia"])){
                             $sql.="WHERE  materia != ? ";
                             $param_materia="";//materia!=all vuoldire che cerca tutte le materie
                         }else{
