@@ -127,7 +127,7 @@ if(!isset($_SESSION['uname'])){
                                             echo "<div class='button mt-2 d-flex flex-row align-items-center'>";
         
                                             echo "<a href='visualizza.php?id=".$row['id_utente']."&materia=".$row['materia']."'><button class='btn btn-sm btn-outline-primary w-100'>Dettagli</button></a>";
-                                            echo "<button class='btn btn-sm btn-primary w-100 ml-2'>Prenota</button>";
+                                            echo "<a href='prenota.php?id=".$row['id_utente']."&utente=".$_SESSION['id']."'><button class='btn btn-sm btn-primary w-100 ml-2'>Prenota</button></a>";
                                             echo "</div>";
                                             echo "</div>";
                                             echo "</div>";
