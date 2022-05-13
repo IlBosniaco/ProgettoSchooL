@@ -1,18 +1,18 @@
 <?php
 if(isset($_POST['btn'])){
-    if (isset($_GET["id"])&& !empty(trim($_GET["id"]))) {
+    echo "bruh";
+    if (isset($_GET["id_ripetizione"])&& !empty(trim($_GET["id_alunno"]))) {
         require_once '../Database/config.php';
     
-        $sql="INSERT INTO lezioni(id_tutor,id_alunno) VALUES (?,?)";
+        $sql="INSERT INTO lezioni(id_ripetizione,id_alunno) VALUES (?,?)";
         
     
         if($stmt = mysqli_prepare($link,$sql)){
             mysqli_stmt_bind_param($stmt, "ii", $param_tutor, $param_alunno);
-            echo "bruh";
     
-            $param_tutor = trim($_GET["id"]);
-            $param_alunno = trim($_GET["utente"]);
-    
+            $param_tutor = trim($_GET["id_ripetizione"]);
+            $param_alunno = trim($_GET["id_alunno"]);
+            echo $param_tutor." ".$param_alunno;
             if(mysqli_stmt_execute($stmt)){
                 header("location: ricerca.php");
                 exit();
@@ -40,8 +40,8 @@ if(isset($_POST['btn'])){
     <title>Document</title>
 </head>
 <body>
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"])."?id=".trim($_GET["id"])."&utente=".trim($_GET["utente"]);?>" method="post">
-        <input type="hidden" name="id" value="<?php echo trim($_GET["id"]); ?>">
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"])."?id_ripetizione=".trim($_GET["id_ripetizione"])."&id_alunno=".trim($_GET["id_alunno"]);?>" method="post">
+        <input type="hidden" name="id_ripetizione" value="<?php echo trim($_GET["id_ripetizione"]); ?>">
         <p>sei sicuro di voler prenotare questo tutor?</p><br>
         <p><input type="submit" value="Yes" name="btn">
         <a href="ricerca.php">No</a>

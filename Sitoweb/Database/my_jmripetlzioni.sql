@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 10, 2022 alle 22:59
+-- Creato il: Mag 14, 2022 alle 00:22
 -- Versione del server: 10.4.22-MariaDB
 -- Versione PHP: 8.0.13
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `dbjmripetizioni`
+-- Database: `my_jmripetlzioni`
 --
 
 -- --------------------------------------------------------
@@ -28,8 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `lezioni` (
-  `id` int(11) NOT NULL,
-  `id_tutor` int(11) NOT NULL,
+  `id_ripetizione` int(11) NOT NULL,
   `id_alunno` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -37,8 +36,9 @@ CREATE TABLE `lezioni` (
 -- Dump dei dati per la tabella `lezioni`
 --
 
-INSERT INTO `lezioni` (`id`, `id_tutor`, `id_alunno`) VALUES
-(1, 2, 1);
+INSERT INTO `lezioni` (`id_ripetizione`, `id_alunno`) VALUES
+(1, 1),
+(2, 1);
 
 -- --------------------------------------------------------
 
@@ -47,6 +47,7 @@ INSERT INTO `lezioni` (`id`, `id_tutor`, `id_alunno`) VALUES
 --
 
 CREATE TABLE `materiatutor` (
+  `id_ripetizione` int(4) NOT NULL,
   `idtutor` int(11) NOT NULL,
   `idmaterie` int(11) NOT NULL,
   `descrizione` varchar(250) DEFAULT NULL,
@@ -57,9 +58,9 @@ CREATE TABLE `materiatutor` (
 -- Dump dei dati per la tabella `materiatutor`
 --
 
-INSERT INTO `materiatutor` (`idtutor`, `idmaterie`, `descrizione`, `prezzi_ora`) VALUES
-(2, 1, 'Equazione e Teorema di Pitagora', 10),
-(2, 2, 'Divina Commedia, promessi sposi', 20);
+INSERT INTO `materiatutor` (`id_ripetizione`, `idtutor`, `idmaterie`, `descrizione`, `prezzi_ora`) VALUES
+(1, 2, 1, 'Equazione e Teorema di Pitagora', 10),
+(2, 2, 2, 'Divina Commedia, promessi sposi', 20);
 
 -- --------------------------------------------------------
 
@@ -140,15 +141,15 @@ INSERT INTO `utente` (`id`, `nome_utente`, `email`, `password`, `immagine_profil
 -- Indici per le tabelle `lezioni`
 --
 ALTER TABLE `lezioni`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_alunno` (`id_alunno`),
-  ADD KEY `id_tutor` (`id_tutor`);
+  ADD PRIMARY KEY (`id_ripetizione`,`id_alunno`),
+  ADD KEY `lezioni_ibfk_1` (`id_alunno`);
 
 --
 -- Indici per le tabelle `materiatutor`
 --
 ALTER TABLE `materiatutor`
-  ADD PRIMARY KEY (`idtutor`,`idmaterie`),
+  ADD PRIMARY KEY (`id_ripetizione`),
+  ADD KEY `idtutor` (`idtutor`),
   ADD KEY `idmaterie` (`idmaterie`);
 
 --
@@ -174,10 +175,10 @@ ALTER TABLE `utente`
 --
 
 --
--- AUTO_INCREMENT per la tabella `lezioni`
+-- AUTO_INCREMENT per la tabella `materiatutor`
 --
-ALTER TABLE `lezioni`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `materiatutor`
+  MODIFY `id_ripetizione` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT per la tabella `materie`
@@ -199,15 +200,15 @@ ALTER TABLE `utente`
 -- Limiti per la tabella `lezioni`
 --
 ALTER TABLE `lezioni`
-  ADD CONSTRAINT `lezioni_ibfk_1` FOREIGN KEY (`id_alunno`) REFERENCES `utente` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `lezioni_ibfk_2` FOREIGN KEY (`id_tutor`) REFERENCES `tutor` (`id_utente`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `lezioni_ibfk_1` FOREIGN KEY (`id_alunno`) REFERENCES `utente` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `lezioni_ibfk_2` FOREIGN KEY (`id_ripetizione`) REFERENCES `materiatutor` (`id_ripetizione`) ON DELETE CASCADE;
 
 --
 -- Limiti per la tabella `materiatutor`
 --
 ALTER TABLE `materiatutor`
-  ADD CONSTRAINT `materiatutor_ibfk_1` FOREIGN KEY (`idmaterie`) REFERENCES `materie` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `materiatutor_ibfk_2` FOREIGN KEY (`idtutor`) REFERENCES `tutor` (`id_utente`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `materiatutor_ibfk_1` FOREIGN KEY (`idtutor`) REFERENCES `tutor` (`id_utente`),
+  ADD CONSTRAINT `materiatutor_ibfk_2` FOREIGN KEY (`idmaterie`) REFERENCES `materie` (`id`);
 
 --
 -- Limiti per la tabella `tutor`

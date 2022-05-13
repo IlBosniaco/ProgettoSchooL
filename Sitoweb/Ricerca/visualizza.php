@@ -141,9 +141,8 @@ if(!isset($_SESSION['uname'])){
                     </div>
                     
                     <br>
-                    <form action="prenota.php" action="post">
-                        <center><input type="submit" value="PRENOTA" class="profile-edit-btn" id="editPwd" value="Edit Password"></center>
-                    </form>
+                    <center><a href= <?php echo "prenota.php?id_ripetizione=".$row['id_ripetizione']."&id_alunno=".$_SESSION['id']?>><button class="profile-edit-btn">Prenota</button></a></center>
+
 
                 </div>
             <?php

@@ -3,10 +3,10 @@
           <a href="../Homepage/index.php"><img src="../logo/logo_white_large.png" class="logo"></a> 
         </li>    
         <li>
-          Le mie lezioni
+          <a href="../Lezioni/index.php">Le mie Lezioni</a> 
         </li>
         <li>
-          Diventa tutor
+         <a href="../DiventaTutor/index.php">Diventa Tutor</a> 
         </li>
         <li>
           <a href="../Ricerca/ricerca.php">Cerca tutor</a> 
