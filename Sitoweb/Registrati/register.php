@@ -37,8 +37,8 @@ require_once '../Database/config.php';
                     <input type="text" name="email" placeholder=" Email">
                     <select name="sesso" id="" required>
                         <option disabled selected value>Sesso</option>
-                        <option value="maschio">Maschio</option>
-                        <option value="femmina">Femmina</option>
+                        <option value="M">Maschio</option>
+                        <option value="F">Femmina</option>
                     </select>
                     <select name="anno" id="" required>
                         <option disabled selected value>Anno</option>
@@ -70,7 +70,10 @@ require_once '../Database/config.php';
                     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     
                         $nome = mysqli_real_escape_string($link, $_POST['nome']);
+                        $nome_maiuscolo = ucfirst(strtolower($nome)); 
                         $cognome = mysqli_real_escape_string($link, $_POST['cognome']);
+                        $cognome_maiuscolo = ucfirst(strtolower($cognome)); 
+
                         $nome_utente=$cognome."_".$nome;
                         $email = mysqli_real_escape_string($link, $_POST['email']);
                         $immagine_profilo='DEFAULT';
@@ -78,9 +81,8 @@ require_once '../Database/config.php';
                         $sezione = mysqli_real_escape_string($link, $_POST['sezione']);
                         $indirizzo = mysqli_real_escape_string($link, $_POST['indirizzo']);
                         $sesso = mysqli_real_escape_string($link, $_POST['sesso']);
-                        
-                        //Controllo email già usata 
-                        $sql_query="SELECT COUNT(*) AS cntEmail FROM utente WHERE email=?";
+                            //Controllo email già usata 
+                             $sql_query="SELECT COUNT(*) AS cntEmail FROM utente WHERE email=?";
                             if($stmt = mysqli_prepare($link,$sql_query)){
                                 mysqli_stmt_bind_param($stmt, "s", $email);                   
                                 if(mysqli_stmt_execute($stmt)){
@@ -99,30 +101,32 @@ require_once '../Database/config.php';
                                         $index = rand(0, strlen($characters) - 1);
                                         $randstring .= $characters[$index];
                                         }
-                                        $query= "INSERT INTO utente VALUES (' ', '$nome_utente', '$email', '$randstring', DEFAULT, '$anno', '$sezione','$indirizzo','$nome','$cognome',' ','$sesso')";
-                                        $result= mysqli_query($link,$query);
-                                        //invio email
-                                        
-                                        
-                                        $to= $email;//email utente
-                                        $subject="Registrazione Completata";
-                                        $message="nomeutente:".$nome_utente."\n\npassword: ".$randstring;
-                                        $sender="";
-                                        //$from="corsophp@gmail.com"
-                                        if(mail($to,$subject,$message,$sender))
-                                        {
-                                            echo "è stata inviata un email con la password temporanea \n";
-                                            echo '<div class="alert alert-success" style="display:flex; justify-content: center; color:green;  " role="alert">';
-                                            echo 'Registrazione completata'.'<a href="../Login/index.php">Torna alla login</a>';
-                                            echo '</div>';
-                                        }
-                                        else{
-                                            echo "errore nell'invio email";
-                                        }
-                                       
+
+                                        $query= "INSERT INTO utente VALUES (NULL, '$nome_utente', '$email', '$randstring', DEFAULT, '$anno', '$sezione','$indirizzo','$nome_maiuscolo','$cognome_maiuscolo',NULL,'$sesso')";
+                                        if ($link->query($query) === TRUE) { //updating success
+
+                                            //invio email                                           
+                                            $to= $email;//email utente
+                                            $subject="Registrazione Completata";
+                                            $message="nomeutente:".$nome_utente."\n\npassword: ".$randstring;
+                                            $sender="";
+                                            //$from="corsophp@gmail.com"
+                                            if(mail($to,$subject,$message,$sender))
+                                            {
+                                                echo "è stata inviata un email con la password temporanea \n";
+                                                echo '<div class="alert alert-success" style="display:flex; justify-content: center; color:green;  " role="alert">';
+                                                echo 'Registrazione completata'.'<a href="../Login/index.php">Torna alla login</a>';
+                                                echo '</div>';
+                                            }
+                                            else{
+                                                echo "errore nell'invio email";
+                                            }
+
+                                        } else {
+                                            echo "Error updating record: " . $link->error. " ".$query;
+                                        }                                      
                                     }     
-                                }
-                                                               
+                                }                      
                             }
                     }
 ?>
