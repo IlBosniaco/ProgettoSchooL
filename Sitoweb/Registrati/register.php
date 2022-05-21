@@ -29,7 +29,7 @@ require_once '../Database/config.php';
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 <div class="title">
                     <i class="fas fa-pencil-alt"></i>
-                    <h2>Register here</h2>
+                    <h2>Registrati </h2>
                 </div>
                 <div class="info">
                     <input class="fname" type="text" name="nome" placeholder=" Nome">
@@ -54,13 +54,22 @@ require_once '../Database/config.php';
                         <option value="B">B</option>
                         <option value="C">C</option>
                         <option value="D">D</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+
                     </select>
                     <select name="indirizzo" id="" required>
                         <option disabled selected value>Indirizzo</option>
-                        <option value="INF">INF</option>
-                        <option value="LSA">LSA</option>
-                        <option value="RIM">RIM</option>
                         <option value="MEC">MEC</option>
+                        <option value="ENE">ENE</option>
+                        <option value="INF">INF</option>
+                        <option value="TUR">TUR</option>
+                        <option value="CHI">CHI</option>
+                        <option value="AFM">AFM</option>
+                        <option value="RIM">RIM</option>
+                        <option value="LSA">LSA</option>
+                        <option value="LL">LL</option>
+
                     </select>
                     <input class="fname" type="text" name="numTel" id="numTel"
                         placeholder=" Num Telefono (non obbligatorio)">

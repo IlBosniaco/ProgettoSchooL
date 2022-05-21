@@ -36,13 +36,13 @@ if(!isset($_SESSION['uname'])){
                             <h2>FILTRI RICERCA</h2>
                         </div>
                         <div class="info">
-                            <select name="sesso" id="">
+                            <select name="sesso" id="" required>
                                 <option disabled selected value>Sesso</option>
                                 <option value="maschio">Maschio</option>
                                 <option value="femmina">Femmina</option>
                             </select>
                             <select name="materia"
-                                onchange="document.getElementById('selected_id').value=this.options[this.selectedIndex].text">
+                                onchange="document.getElementById('selected_id').value=this.options[this.selectedIndex].text" required>
                                 <option disabled selected value>Materia</option>
                                 <?php  
                                 require_once '../Database/config.php';
@@ -53,6 +53,7 @@ if(!isset($_SESSION['uname'])){
                                 echo "<option value='".$row['materia']."'>".$row['materia']."</option>";
                                 }                                
                                 ?>
+                                
                             </select>
                             <button type="submit" href="/">Cerca</button>
                             <button type="reset" href="register.php">Annulla</button>
