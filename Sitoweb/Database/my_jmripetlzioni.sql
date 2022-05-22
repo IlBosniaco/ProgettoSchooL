@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 14, 2022 alle 00:22
+-- Creato il: Mag 22, 2022 alle 16:27
 -- Versione del server: 10.4.22-MariaDB
 -- Versione PHP: 8.0.13
 
@@ -60,7 +60,8 @@ CREATE TABLE `materiatutor` (
 
 INSERT INTO `materiatutor` (`id_ripetizione`, `idtutor`, `idmaterie`, `descrizione`, `prezzi_ora`) VALUES
 (1, 2, 1, 'Equazione e Teorema di Pitagora', 10),
-(2, 2, 2, 'Divina Commedia, promessi sposi', 20);
+(2, 2, 2, 'Divina Commedia, promessi sposi', 20),
+(3, 2, 3, 'impero romano', 2);
 
 -- --------------------------------------------------------
 
@@ -102,6 +103,7 @@ CREATE TABLE `tutor` (
 --
 
 INSERT INTO `tutor` (`id_utente`, `valutazione`, `numero_recensioni`, `link_meet`) VALUES
+(1, NULL, NULL, ''),
 (2, NULL, NULL, 'https://meet.google.com/thd-athe-obj');
 
 -- --------------------------------------------------------
@@ -130,8 +132,8 @@ CREATE TABLE `utente` (
 --
 
 INSERT INTO `utente` (`id`, `nome_utente`, `email`, `password`, `immagine_profilo`, `anno`, `sezione`, `indirizzo`, `nome`, `cognome`, `numTelefono`, `sesso`) VALUES
-(1, 'rossi_mario', 'rossi_mario@ismonnet.onmicrosoft.com', '1234', '../Immagini_profilo/rossi_mario_profile.jpg', 5, 'B', 'inf', 'mario', 'rossi', '333451', 'M'),
-(2, 'conti_pippo', 'conti_pippo@ismonnet.onmicrosoft.com', '1234', '../Immagini_profilo/conti_pippo_profile.jpg', 1, 'B', 'inf', 'conti', 'pippo', '333452', 'M');
+(1, 'rossi_mario', 'rossi_mario@ismonnet.onmicrosoft.com', '81dc9bdb52d04dc20036dbd8313ed055', '../Immagini_profilo/rossi_mario_profile.jpg', 5, 'B', 'inf', 'mario', 'rossi', '333451', 'M'),
+(2, 'conti_pippo', 'conti_pippo@ismonnet.onmicrosoft.com', '81dc9bdb52d04dc20036dbd8313ed055', '../Immagini_profilo/conti_pippo_profile.jpg', 1, 'B', 'inf', 'conti', 'pippo', '333452', 'M');
 
 --
 -- Indici per le tabelle scaricate
@@ -178,7 +180,7 @@ ALTER TABLE `utente`
 -- AUTO_INCREMENT per la tabella `materiatutor`
 --
 ALTER TABLE `materiatutor`
-  MODIFY `id_ripetizione` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_ripetizione` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT per la tabella `materie`
