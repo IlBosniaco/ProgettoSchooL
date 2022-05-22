@@ -8,65 +8,143 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
     <link rel="stylesheet" href="../Stylesheets/style.css">
+    <link rel="icon" href="../logo/logo_small_icon_only.png">
+    <style type="text/css">
+    .wrapper {
+        width: 40%;
+        margin: 0 auto;
+    }
+
+    .table {
+        width: 1000px;
+    }
+
+    input {
+        margin-left: 50px;
+    }
+    </style>
     <title>Dati tutor</title>
 </head>
+
 <body>
     <?php
         include_once "../header/navbar.php";
-    
-
         require_once '../Database/config.php';
 
-
+    ?>
+    <div class="wrapper">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-header clearfix">
+                    <center>
+                        <h2 class="">I MIEI ANNUNCI</h2>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php //visualiza i miei annunci
         $sql="SELECT * FROM tutor t LEFT JOIN materiatutor mt ON t.id_utente=mt.idtutor INNER JOIN materie m ON mt.idmaterie=m.id WHERE t.id_utente=?";
 
         if($stmt = mysqli_prepare($link,$sql)){
             mysqli_stmt_bind_param($stmt, "i", $param_id);
 
             $param_id = $_SESSION["id"];
-            
             if(mysqli_stmt_execute($stmt)){
                 $result = mysqli_stmt_get_result($stmt);
-                $row = mysqli_fetch_array($result);
-                
-                echo "<h1>LINK MEET:</h1>";
-                if(isset($row["link_meet"])){
-                    echo $row["link_meet"];
-                }else{
-                    echo "non hai un link meet";
-                }
-
-                echo "<h1>Lezioni:</h1>";
-                if(isset($row["id_ripetizione"])){
-                    echo '<table border="1" style="margin-top:20px;">';
-                    echo '<tr class="grassetto"><td>mateia</td><td>descrizione</td><td>prezzo</td><td>elimina</td></tr>';
-					
-                    do{
-                        echo '<tr style="text-align:center">';
+                if(mysqli_num_rows($result) > 0){
+                    echo "<center>";
+                    echo "<table class='table table-bordered table-striped'>";
+                    echo "<thead >";
+                    echo "<tr >";
+                        echo "<th style='text-align:center'>MATERIA</th>";
+                        echo "<th style='text-align:center'>DESCRIZIONE</th>";
+                        echo "<th style='text-align:center'>PREZZO</th>";
+                        echo "<th style='text-align:center'>ELIMINA</th>";
+                    echo "</tr>";
+                echo "</thead>";
+                echo "<tbody>";
+                    while($row = mysqli_fetch_array($result)){
+                        echo '<tr style="text-align:center ; background-color:rgb(255, 255, 200);">';
                             echo "<td>".$row['materia']."</td>";
                             echo "<td>".$row['descrizione']."</td>";
-                            echo "<td>".$row['prezzi_ora']."</td>";
-                            echo '<td><a href="elimina.php?ID='.$row['id_ripetizione'].'">D</a></td>';
+                            echo "<td>".$row['prezzi_ora']."€</td>";
+                            $link_elimina="elimina.php?ID=".$row['id_ripetizione'];
+                            echo "<td><a href='$link_elimina'><img src='../logo/delete.png'</a></td>";
                         echo "</tr>";
-                    }while($row = mysqli_fetch_array($result));//controlla se c'è più di una materia insegnata
-                }else{
-                    echo "non insegni alcuna lezione";
+                    }
+                 echo "</tbody>";                                    
+                    echo "</table></center>";
+                    mysqli_free_result($result);
+                } else {
+                    echo "<p class='wrapper'><em>Non insegni nessuna materia</em></p>";
                 }
-
-
-
-                mysqli_stmt_close($stmt);
-            }else{
-                echo "errore in esecuzione";
-            }
+            }         
         }else{
-            echo "errore in sql";
+            echo "errore in esecuzione";
         }
     ?>
+    <div class="wrapper">
+
+        <div class="page-header clearfix">
+            <center>
+                <h2 class="">INSERISCI ANNUNCIO</h2>
+            </center>
+        </div>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <p>SELEZIONA MATERIA
+                <select name="idmateria"
+                    onchange="document.getElementById('selected_id').value=this.options[this.selectedIndex].text"
+                    required>
+                    <option disabled selected value>Materia</option>
+                    <?php  
+                    require_once '../Database/config.php';
+                    $id=$_SESSION['id'];
+                    $sql = "SELECT * FROM materie ";//tutti gli utenti (tranne me)
+                    $result = mysqli_query($link,$sql);
+    
+                    while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){                                                 
+                    echo "<option value='".$row['id']."'>".$row['materia']."</option>";
+                    }                                
+                    ?>
+                </select>
+            <p>Inserire descrizone <input type="text" name="descrizione" style="width:300px;"placeholder="promessi sposi, divina commedia..." required></p>
+            <p>Inserire prezzo: <input type="number" style='width:50px' name="prezzo" value="0" required>€/h
+            </p>
+            <br>
+            <center><input type="submit" value="Inserisci" class="btn btn-success"></center>
+        </form>
+    </div>
+                <?php
+
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                        $id=$_SESSION['id'];
+                        $id_materia=$_POST['idmateria'];
+                        $param_descrizione=$_POST['descrizione'];
+                        $param_prezzo=$_POST['prezzo'];
+                        //controlo prezzo
+                        if($param_prezzo>0)
+                        {
+                            echo $id." ".$id_materia." ".$param_descrizione." ".$param_prezzo;
+                            $query= "INSERT INTO materiatutor VALUES (NULL, $id, $id_materia, '$param_descrizione', '$param_prezzo')";
+                            if ($link->query($query) === TRUE) { //updating success
+                                header("Refresh:0");                                
+                            } else {
+                                echo "Error updating record: " . $link->error. " ".$query;
+                            }     
+                        }
+                        else{
+                            echo "<script type='text/javascript'>alert('prezzo deve essere positivo');</script>";
+                        }
+                    }
+                ?>
 </body>
+
 </html>

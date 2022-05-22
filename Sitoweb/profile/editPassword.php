@@ -9,9 +9,8 @@ if(!isset($_SESSION['uname'])){
     require_once '../Database/config.php';
     $new_password= trim($_POST["password"]);
     $id=$_SESSION['id'];
-    echo $new_password." ".$id;
-
-    $sql="UPDATE utente SET password='$new_password' WHERE id='$id'";
+    $param_psw=md5($new_password);
+    $sql="UPDATE utente SET password='$param_psw' WHERE id='$id'";
 
     if($stmt = mysqli_prepare($link,$sql)){
 

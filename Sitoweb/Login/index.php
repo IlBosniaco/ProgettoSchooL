@@ -9,35 +9,35 @@
 
   if(isset($_POST['but_submit'])){
     include "../Database/config.php";
-    $uname=mysqli_real_escape_string($link,$_POST['uname']);
-    $password=mysqli_real_escape_string($link,$_POST['pwd']);
-
-    if($uname != "" && $password != ""){
-        $sql_query="SELECT id,COUNT(*) AS cntUser FROM utente WHERE nome_utente=? AND password=?";
-        if($stmt = mysqli_prepare($link,$sql_query)){
-          mysqli_stmt_bind_param($stmt, "ss", $param_uname, $param_pass);
-          
-          $param_uname = trim($_POST["uname"]);
-          $param_pass = trim($_POST["pwd"]);
-  
-          if(mysqli_stmt_execute($stmt)){
-            $result = mysqli_stmt_get_result($stmt);
-            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
+    $param_uname = trim($_POST["uname"]);
+    $pass = trim($_POST["pwd"]);
+    $param_pass=md5($pass);
+    
+    if($param_uname != "" && $param_pass != ""){
+      echo $param_pass;
+      $sql_query="SELECT id,COUNT(*) AS cntUser FROM utente WHERE nome_utente=? AND password=?";
+      if($stmt = mysqli_prepare($link,$sql_query)){
+        mysqli_stmt_bind_param($stmt, "ss", $param_uname, $param_pass);
+        if(mysqli_stmt_execute($stmt)){
+          $result = mysqli_stmt_get_result($stmt);
+          $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+          echo "cntUSer:".$row['cntUser'];
             if($row["cntUser"]==1){
-              $_SESSION['uname']=$uname;
+              $_SESSION['uname']=$param_uname;
               $_SESSION['id']=$row["id"];
               header('Location: ../Homepage/index.php');
               exit(); 
             }else if($row["cntUser"]>1){
-              echo "fatal error";
+              header("Refresh:0");
             }else{
-              echo "passwor wrong";
+              header("Refresh:0");
             }
-          }
-      }else{
-        echo "something went wrong";
+        }
+        else{
+          echo "Error updating record: " . $link->error. " ".$query;
+        }
       }
+      
     }
   }
 ?>

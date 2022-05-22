@@ -110,8 +110,8 @@ require_once '../Database/config.php';
                                         $index = rand(0, strlen($characters) - 1);
                                         $randstring .= $characters[$index];
                                         }
-
-                                        $query= "INSERT INTO utente VALUES (NULL, '$nome_utente', '$email', '$randstring', DEFAULT, '$anno', '$sezione','$indirizzo','$nome_maiuscolo','$cognome_maiuscolo',NULL,'$sesso')";
+                                        $rand_pass=md5($randstring);
+                                        $query= "INSERT INTO utente VALUES (NULL, '$nome_utente', '$email', '$rand_pass', DEFAULT, '$anno', '$sezione','$indirizzo','$nome_maiuscolo','$cognome_maiuscolo',NULL,'$sesso')";
                                         if ($link->query($query) === TRUE) { //updating success
 
                                             //invio email                                           

@@ -7,7 +7,7 @@
 
 <?php
     if(isset($_POST["ID"]) && !empty($_POST["ID"])){
-        require_once 'config.php';
+        require_once '../Database/config.php';
         
         $sql = "DELETE FROM materiatutor WHERE (id_ripetizione = ?);";
         if($stmt = mysqli_prepare($link, $sql)){
