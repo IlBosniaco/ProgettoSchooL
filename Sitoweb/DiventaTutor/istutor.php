@@ -17,17 +17,31 @@
     <link rel="stylesheet" href="../Stylesheets/style.css">
     <link rel="icon" href="../logo/logo_small_icon_only.png">
     <style type="text/css">
+    
     .wrapper {
         width: 40%;
         margin: 0 auto;
     }
 
-    .table {
+    .table{
         width: 1000px;
+        height: 250px;
+        background-color: black;
+        color: white;
+    }
+    td{
+        color:black;
+        background-color: white;
     }
 
     input {
         margin-left: 50px;
+    }
+    .fields1{
+        background-color: white;
+        border-color: black;
+        border: 20px;
+        
     }
     </style>
     <title>Dati tutor</title>
@@ -98,7 +112,10 @@
                 <h2 class="">INSERISCI ANNUNCIO</h2>
             </center>
         </div>
+        <fieldset class="fields1">
+            
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <br><br>
             <p>SELEZIONA MATERIA
                 <select name="idmateria"
                     onchange="document.getElementById('selected_id').value=this.options[this.selectedIndex].text"
@@ -121,6 +138,7 @@
             <br>
             <center><input type="submit" value="Inserisci" class="btn btn-success"></center>
         </form>
+        </fieldset>
     </div>
                 <?php
 

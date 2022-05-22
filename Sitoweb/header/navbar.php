@@ -8,7 +8,7 @@
 @media screen and (max-width: 900px) {
   /*se riesci fai il vertical-align simmy :)*/
   body{
-    /*background-color:blue;*/
+    background-color:none;
   }
 }
 </style>

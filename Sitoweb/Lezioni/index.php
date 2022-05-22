@@ -17,12 +17,23 @@
     <link rel="icon" href="../logo/logo_small_icon_only.png">
     <title>Le mie lezioni</title>
     <style type="text/css">
+    html{
+        font-family: sans-serif;
+    }
     .wrapper {
         width: 650px;
         margin: 0 auto;
     }
     .table{
         width: 1000px;
+        height: 250px;
+        background-color: black;
+        color: white;
+        margin-top: 8%;
+    }
+    td{
+        color:black;
+        background-color: white;
     }
     </style>
 </head>

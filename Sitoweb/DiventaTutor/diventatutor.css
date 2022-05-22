@@ -1,0 +1,20 @@
+html{
+    zoom: 2;
+    background-color: grey;
+}
+fieldset{
+    justify-content: center;
+    text-align: center;
+    width: 50%;
+    margin-top: 10%;
+    background-color: lightgrey;
+    font-family: sans-serif;
+    color: black;
+    text-decoration: underline;
+}
+.no{
+background-color: red;
+}
+.si{
+    background-color: green;
+}
