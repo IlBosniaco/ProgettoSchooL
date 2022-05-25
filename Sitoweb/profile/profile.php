@@ -15,6 +15,7 @@ if(!isset($_SESSION['uname'])){
     <link rel="stylesheet" href="profilestyle.css">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="../Stylesheets/style.css">
+    <link rel="icon" href="../logo/logo_small_icon_only.png">
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="../Registrati/functions.js"></script>
 

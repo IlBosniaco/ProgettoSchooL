@@ -29,7 +29,7 @@
         height: 250px;
         background-color: black;
         color: white;
-        margin-top: 8%;
+        margin-top: 1%;
     }
     td{
         color:black;

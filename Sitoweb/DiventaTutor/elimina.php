@@ -39,7 +39,7 @@
     <body>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
             <input type="hidden" name="ID" value="<?php echo trim($_GET["ID"]);?>"/>
-            <p>Sei davvero sicuro di voler eliminare questa lezione?</p>
+            <p>Sei davvero sicuro di voler eliminare questa lezione?<br> verrano eliminate pure le lezioni prenotate</p>
             <p>
                 <input type="submit" value="Sì"/>
                 <a href="istutor.php">No</a>

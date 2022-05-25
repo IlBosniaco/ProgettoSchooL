@@ -53,6 +53,29 @@
         require_once '../Database/config.php';
 
     ?>
+     <?php
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $id=$_SESSION['id'];
+            $id_materia=$_POST['idmateria'];
+            $param_descrizione=$_POST['descrizione'];
+            $param_prezzo=$_POST['prezzo'];
+            //controlo prezzo
+            if($param_prezzo>0)
+            {
+                echo $id." ".$id_materia." ".$param_descrizione." ".$param_prezzo;
+                $query= "INSERT INTO materiatutor VALUES (NULL, $id, $id_materia, '$param_descrizione', '$param_prezzo')";
+                if ($link->query($query) === TRUE) { //updating success
+                    header("Refresh:0");                                
+                } else {
+                    echo "Error updating record: " . $link->error. " ".$query;
+                }     
+            }
+            else{
+                echo "<script type='text/javascript'>alert('prezzo deve essere positivo');</script>";
+            }
+        }
+    ?>
     <div class="wrapper">
         <div class="row">
             <div class="col-md-12">
@@ -138,31 +161,11 @@
             <br>
             <center><input type="submit" value="Inserisci" class="btn btn-success"></center>
         </form>
+        <br>
         </fieldset>
     </div>
-                <?php
-
-                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                        $id=$_SESSION['id'];
-                        $id_materia=$_POST['idmateria'];
-                        $param_descrizione=$_POST['descrizione'];
-                        $param_prezzo=$_POST['prezzo'];
-                        //controlo prezzo
-                        if($param_prezzo>0)
-                        {
-                            echo $id." ".$id_materia." ".$param_descrizione." ".$param_prezzo;
-                            $query= "INSERT INTO materiatutor VALUES (NULL, $id, $id_materia, '$param_descrizione', '$param_prezzo')";
-                            if ($link->query($query) === TRUE) { //updating success
-                                header("Refresh:0");                                
-                            } else {
-                                echo "Error updating record: " . $link->error. " ".$query;
-                            }     
-                        }
-                        else{
-                            echo "<script type='text/javascript'>alert('prezzo deve essere positivo');</script>";
-                        }
-                    }
-                ?>
+    <br><br>
+    <br><br>
 </body>
 
 </html>
