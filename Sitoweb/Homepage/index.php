@@ -22,6 +22,14 @@ $_SESSION['id']=$row["id"];*/
         margin: auto;
         width: 75%;
     }
+    div{
+        background-color: rgba(0, 0, 0, 0.4);
+        height:70px;
+    }
+    p{
+        color:white;
+    }
+    
     </style>
 </head>
 
@@ -51,7 +59,9 @@ $_SESSION['id']=$row["id"];*/
     ?>
     <img src="../logo/logo_white_large.png" class="center">
 
-
+    <div>
+        <li><center><p>EMAIL: <a style='color:white' href='mailto:nainsob2022@gmail.com' >nainsob2022@gmail.com</a></center>
+    </div>
 </body>
 
 </html>
